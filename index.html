@@ -1,0 +1,2001 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IBPS PO Mains — 90-Day War Room</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Bebas+Neue&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0a0a0f;
+  --bg2: #111118;
+  --bg3: #1a1a24;
+  --bg4: #22222e;
+  --border: rgba(255,255,255,0.07);
+  --border2: rgba(255,255,255,0.13);
+  --text: #e8e8f0;
+  --muted: #7a7a99;
+  --accent: #f0c040;
+  --accent2: #ff6b35;
+  --green: #2ecc71;
+  --red: #e74c3c;
+  --blue: #4a9eff;
+  --purple: #9b59b6;
+  --teal: #1abc9c;
+  --phase1: #4a9eff;
+  --phase2: #f0c040;
+  --phase3: #ff6b35;
+  --font: 'Space Grotesk', sans-serif;
+  --display: 'Bebas Neue', sans-serif;
+  --mono: 'JetBrains Mono', monospace;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body { background:var(--bg); color:var(--text); font-family:var(--font); min-height:100vh; overflow-x:hidden; }
+::-webkit-scrollbar { width:4px; }
+::-webkit-scrollbar-track { background:var(--bg2); }
+::-webkit-scrollbar-thumb { background:var(--bg4); border-radius:2px; }
+
+/* Layout */
+.shell { display:flex; min-height:100vh; }
+.sidebar { width:240px; background:var(--bg2); border-right:1px solid var(--border); position:fixed; top:0; left:0; height:100vh; overflow-y:auto; z-index:100; display:flex; flex-direction:column; }
+.main { margin-left:240px; flex:1; min-height:100vh; }
+
+/* Sidebar */
+.logo-area { padding:24px 20px 20px; border-bottom:1px solid var(--border); }
+.logo-badge { font-family:var(--display); font-size:28px; letter-spacing:1px; color:var(--accent); line-height:1; }
+.logo-sub { font-size:10px; color:var(--muted); letter-spacing:3px; text-transform:uppercase; margin-top:4px; }
+.phase-bar { margin:16px 20px; border-radius:6px; overflow:hidden; height:6px; background:var(--bg4); position:relative; }
+.phase-bar-fill { height:100%; border-radius:6px; transition:width 0.5s; }
+.phase-label { font-size:10px; color:var(--muted); margin:0 20px 4px; display:flex; justify-content:space-between; }
+.nav { padding:8px 0; flex:1; }
+.nav-section { padding:16px 20px 6px; font-size:9px; letter-spacing:3px; text-transform:uppercase; color:var(--muted); }
+.nav-item { display:flex; align-items:center; gap:10px; padding:10px 20px; cursor:pointer; font-size:13px; color:var(--muted); transition:all 0.15s; border-left:3px solid transparent; }
+.nav-item:hover { color:var(--text); background:var(--bg3); }
+.nav-item.active { color:var(--accent); border-left-color:var(--accent); background:rgba(240,192,64,0.05); }
+.nav-icon { width:16px; text-align:center; font-size:14px; }
+.streak-widget { padding:16px 20px; border-top:1px solid var(--border); }
+.streak-num { font-family:var(--display); font-size:36px; color:var(--accent); line-height:1; }
+.streak-label { font-size:10px; color:var(--muted); letter-spacing:2px; text-transform:uppercase; }
+
+/* Header */
+.page-header { padding:28px 36px 0; display:flex; align-items:flex-start; justify-content:space-between; gap:24px; }
+.day-badge { background:var(--accent); color:#0a0a0f; font-family:var(--display); font-size:52px; line-height:1; padding:8px 16px; border-radius:8px; }
+.header-info { flex:1; }
+.header-day-label { font-size:11px; letter-spacing:3px; text-transform:uppercase; color:var(--muted); margin-bottom:6px; }
+.header-title { font-family:var(--display); font-size:32px; color:var(--text); letter-spacing:1px; line-height:1.1; }
+.header-phase { display:inline-flex; align-items:center; gap:8px; margin-top:8px; padding:4px 12px; border-radius:20px; font-size:11px; font-weight:500; }
+.header-date { text-align:right; font-size:13px; color:var(--muted); line-height:1.8; }
+.header-date strong { color:var(--text); display:block; font-size:16px; }
+
+/* Sections */
+.section { padding:28px 36px; }
+.section-title { font-family:var(--display); font-size:22px; letter-spacing:1px; color:var(--text); margin-bottom:20px; display:flex; align-items:center; gap:12px; }
+.section-title::after { content:''; flex:1; height:1px; background:var(--border); }
+
+/* Cards */
+.card { background:var(--bg2); border:1px solid var(--border); border-radius:12px; padding:20px; }
+.card-sm { padding:14px 16px; border-radius:8px; }
+.grid-4 { display:grid; grid-template-columns:repeat(4,1fr); gap:14px; }
+.grid-3 { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; }
+.grid-2 { display:grid; grid-template-columns:repeat(2,1fr); gap:16px; }
+.grid-auto { display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:12px; }
+
+/* Stat Cards */
+.stat-card { background:var(--bg3); border:1px solid var(--border); border-radius:10px; padding:16px; }
+.stat-label { font-size:10px; letter-spacing:2px; text-transform:uppercase; color:var(--muted); margin-bottom:8px; }
+.stat-num { font-family:var(--display); font-size:38px; line-height:1; }
+.stat-sub { font-size:11px; color:var(--muted); margin-top:4px; }
+
+/* Timetable */
+.timetable { display:flex; flex-direction:column; gap:0; }
+.time-block { display:grid; grid-template-columns:90px 1fr; border-bottom:1px solid var(--border); transition:background 0.15s; }
+.time-block:last-child { border-bottom:none; }
+.time-block:hover { background:var(--bg3); }
+.time-col { padding:12px 16px; font-family:var(--mono); font-size:11px; color:var(--muted); border-right:1px solid var(--border); display:flex; align-items:center; }
+.task-col { padding:12px 16px; display:flex; align-items:center; gap:12px; }
+.task-tag { padding:3px 10px; border-radius:12px; font-size:11px; font-weight:600; white-space:nowrap; }
+.task-title { font-size:13px; font-weight:500; flex:1; }
+.task-qty { font-family:var(--mono); font-size:11px; color:var(--muted); white-space:nowrap; }
+.task-check { width:18px; height:18px; border-radius:4px; border:1.5px solid var(--border2); cursor:pointer; display:flex; align-items:center; justify-content:center; font-size:11px; transition:all 0.15s; flex-shrink:0; }
+.task-check.done { background:var(--green); border-color:var(--green); }
+.break-block { background:rgba(255,255,255,0.02); }
+.break-block .task-title { color:var(--muted); font-style:italic; }
+
+/* Progress bars */
+.prog-bar { background:var(--bg4); border-radius:4px; height:6px; overflow:hidden; }
+.prog-fill { height:100%; border-radius:4px; transition:width 0.6s ease; }
+.prog-row { display:flex; align-items:center; gap:10px; margin-bottom:10px; }
+.prog-label { font-size:12px; width:80px; color:var(--muted); }
+.prog-pct { font-family:var(--mono); font-size:11px; color:var(--muted); width:36px; text-align:right; }
+
+/* Subject topic pills */
+.topic-pill { display:inline-flex; align-items:center; gap:6px; padding:6px 12px; border-radius:6px; font-size:12px; background:var(--bg3); border:1px solid var(--border); margin:4px; cursor:pointer; transition:all 0.15s; }
+.topic-pill:hover { border-color:var(--border2); }
+.topic-pill.done { border-color:var(--green); color:var(--green); }
+.topic-pill.active { border-color:var(--accent); color:var(--accent); background:rgba(240,192,64,0.08); }
+
+/* Calendar */
+.cal-grid { display:grid; grid-template-columns:repeat(7,1fr); gap:4px; }
+.cal-day-label { text-align:center; font-size:10px; letter-spacing:2px; text-transform:uppercase; color:var(--muted); padding:6px 0; }
+.cal-day { aspect-ratio:1; border-radius:6px; display:flex; align-items:center; justify-content:center; font-size:12px; cursor:pointer; border:1px solid transparent; transition:all 0.15s; position:relative; }
+.cal-day.empty { opacity:0; pointer-events:none; }
+.cal-day.future { color:var(--muted); background:var(--bg3); }
+.cal-day.done { background:rgba(46,204,113,0.15); color:var(--green); border-color:rgba(46,204,113,0.3); }
+.cal-day.missed { background:rgba(231,76,60,0.1); color:var(--red); border-color:rgba(231,76,60,0.2); }
+.cal-day.today { background:var(--accent); color:#0a0a0f; font-weight:700; }
+.cal-day:not(.empty):not(.future):hover { border-color:var(--border2); }
+
+/* Chart bars */
+.chart-bars { display:flex; align-items:flex-end; gap:4px; height:80px; }
+.bar { flex:1; border-radius:3px 3px 0 0; min-height:4px; transition:height 0.4s; }
+
+/* Accuracy meter */
+.accuracy-ring { position:relative; display:inline-flex; align-items:center; justify-content:center; }
+.accuracy-ring svg { transform:rotate(-90deg); }
+.accuracy-num { position:absolute; font-family:var(--display); font-size:24px; color:var(--text); }
+
+/* Alert */
+.alert { border-radius:8px; padding:14px 16px; font-size:13px; display:flex; align-items:flex-start; gap:10px; margin-bottom:16px; }
+.alert-warn { background:rgba(240,192,64,0.08); border:1px solid rgba(240,192,64,0.25); color:var(--accent); }
+.alert-danger { background:rgba(231,76,60,0.08); border:1px solid rgba(231,76,60,0.25); color:var(--red); }
+.alert-success { background:rgba(46,204,113,0.08); border:1px solid rgba(46,204,113,0.25); color:var(--green); }
+.alert-info { background:rgba(74,158,255,0.08); border:1px solid rgba(74,158,255,0.25); color:var(--blue); }
+
+/* Tabs */
+.tabs { display:flex; gap:4px; border-bottom:1px solid var(--border); margin-bottom:20px; }
+.tab { padding:10px 18px; font-size:13px; color:var(--muted); cursor:pointer; border-bottom:2px solid transparent; transition:all 0.15s; margin-bottom:-1px; }
+.tab.active { color:var(--accent); border-bottom-color:var(--accent); }
+.tab:hover { color:var(--text); }
+.tab-panel { display:none; }
+.tab-panel.active { display:block; }
+
+/* CA Topic rows */
+.ca-row { display:flex; align-items:center; gap:12px; padding:10px 0; border-bottom:1px solid var(--border); }
+.ca-row:last-child { border-bottom:none; }
+.ca-dot { width:8px; height:8px; border-radius:50%; flex-shrink:0; }
+.ca-text { flex:1; font-size:13px; }
+.ca-date { font-size:11px; color:var(--muted); font-family:var(--mono); }
+.ca-tag { padding:2px 8px; border-radius:10px; font-size:10px; font-weight:600; letter-spacing:0.5px; }
+
+/* Computer topics */
+.comp-module { border:1px solid var(--border); border-radius:10px; overflow:hidden; }
+.comp-header { padding:14px 16px; background:var(--bg3); display:flex; align-items:center; justify-content:space-between; cursor:pointer; }
+.comp-title { font-size:13px; font-weight:600; }
+.comp-progress { font-family:var(--mono); font-size:11px; color:var(--muted); }
+.comp-body { padding:14px 16px; display:none; }
+.comp-body.open { display:block; }
+.comp-check-item { display:flex; align-items:center; gap:10px; padding:6px 0; font-size:12px; cursor:pointer; }
+.comp-check-item input { accent-color:var(--accent); width:14px; height:14px; }
+.comp-check-item.checked { color:var(--muted); text-decoration:line-through; }
+
+/* Mock test card */
+.mock-card { border:1px solid var(--border); border-radius:10px; overflow:hidden; }
+.mock-header { padding:14px 16px; background:var(--bg3); display:flex; justify-content:space-between; align-items:center; }
+.mock-score { font-family:var(--display); font-size:32px; }
+.mock-body { padding:14px 16px; }
+.score-section-row { display:flex; align-items:center; gap:8px; margin-bottom:8px; font-size:12px; }
+.score-label { width:100px; color:var(--muted); }
+.score-bar { flex:1; background:var(--bg4); border-radius:3px; height:8px; overflow:hidden; }
+.score-bar-fill { height:100%; border-radius:3px; }
+.score-val { font-family:var(--mono); font-size:11px; width:40px; text-align:right; }
+
+/* Discipline score */
+.discipline-gauge { display:flex; align-items:center; gap:20px; padding:20px; }
+.disc-circle { position:relative; width:100px; height:100px; flex-shrink:0; }
+.disc-num { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; font-family:var(--display); font-size:28px; }
+.disc-label { font-size:11px; color:var(--muted); text-transform:uppercase; letter-spacing:2px; margin-bottom:4px; }
+.disc-title { font-family:var(--display); font-size:22px; margin-bottom:4px; }
+.disc-message { font-size:12px; color:var(--muted); line-height:1.6; }
+
+/* Weak area engine */
+.weak-subject { border:1px solid var(--border); border-radius:8px; padding:14px; margin-bottom:10px; display:flex; align-items:center; gap:14px; }
+.weak-icon { font-size:22px; width:36px; text-align:center; }
+.weak-info { flex:1; }
+.weak-name { font-size:14px; font-weight:600; }
+.weak-stat { font-size:11px; color:var(--muted); margin-top:2px; }
+.weak-badge { padding:3px 10px; border-radius:12px; font-size:11px; font-weight:600; }
+.priority-high { background:rgba(231,76,60,0.15); color:var(--red); }
+.priority-med { background:rgba(240,192,64,0.15); color:var(--accent); }
+.priority-low { background:rgba(46,204,113,0.15); color:var(--green); }
+
+/* Buttons */
+.btn { padding:8px 16px; border-radius:7px; border:1px solid var(--border2); background:transparent; color:var(--text); font-family:var(--font); font-size:13px; cursor:pointer; transition:all 0.15s; }
+.btn:hover { background:var(--bg3); }
+.btn-accent { background:var(--accent); color:#0a0a0f; border-color:var(--accent); font-weight:600; }
+.btn-accent:hover { background:#f7d060; }
+.btn-sm { padding:5px 12px; font-size:12px; }
+.btn-danger { border-color:rgba(231,76,60,0.4); color:var(--red); }
+.btn-danger:hover { background:rgba(231,76,60,0.1); }
+
+/* Analytics */
+.analytics-table { width:100%; border-collapse:collapse; font-size:13px; }
+.analytics-table th { text-align:left; padding:8px 12px; font-size:10px; letter-spacing:2px; text-transform:uppercase; color:var(--muted); border-bottom:1px solid var(--border); }
+.analytics-table td { padding:10px 12px; border-bottom:1px solid var(--border); }
+.analytics-table tr:last-child td { border-bottom:none; }
+.analytics-table tr:hover td { background:var(--bg3); }
+
+/* Badge */
+.badge { display:inline-flex; align-items:center; padding:3px 8px; border-radius:10px; font-size:10px; font-weight:600; letter-spacing:0.5px; }
+
+/* Page */
+.page { display:none; }
+.page.active { display:block; }
+
+/* Notification dot */
+.notif { width:6px; height:6px; background:var(--red); border-radius:50%; }
+
+/* Daily completion ring */
+.day-completion { display:flex; align-items:center; gap:16px; padding:20px; background:var(--bg3); border-radius:10px; margin-bottom:20px; }
+.completion-text { flex:1; }
+.completion-pct { font-family:var(--display); font-size:42px; line-height:1; }
+.completion-label { font-size:11px; color:var(--muted); text-transform:uppercase; letter-spacing:2px; }
+.completion-done { font-size:12px; color:var(--muted); margin-top:4px; }
+
+/* Input */
+input[type=text], input[type=number], select, textarea {
+  background:var(--bg3); border:1px solid var(--border2); border-radius:6px;
+  color:var(--text); font-family:var(--font); padding:8px 12px; font-size:13px;
+  outline:none; transition:border 0.15s;
+}
+input:focus, select:focus, textarea:focus { border-color:var(--accent); }
+select option { background:var(--bg2); }
+.form-row { display:flex; gap:10px; align-items:center; margin-bottom:12px; }
+.form-label { font-size:12px; color:var(--muted); width:120px; flex-shrink:0; }
+
+/* Responsive notice */
+@media (max-width: 900px) {
+  .sidebar { width:60px; }
+  .sidebar .logo-badge, .sidebar .logo-sub, .sidebar .nav-section, .sidebar .nav-item span,
+  .sidebar .streak-widget .streak-label, .sidebar .phase-label, .sidebar .phase-bar { display:none; }
+  .nav-item { padding:12px; justify-content:center; }
+  .main { margin-left:60px; }
+  .grid-4 { grid-template-columns:repeat(2,1fr); }
+  .page-header { padding:20px; }
+  .section { padding:20px; }
+}
+
+/* Animations */
+@keyframes fadeIn { from { opacity:0; transform:translateY(8px); } to { opacity:1; transform:translateY(0); } }
+.page.active { animation:fadeIn 0.2s ease; }
+@keyframes pulse { 0%,100% { opacity:1; } 50% { opacity:0.5; } }
+.pulse { animation:pulse 2s infinite; }
+</style>
+</head>
+<body>
+
+<div class="shell">
+
+<!-- SIDEBAR -->
+<nav class="sidebar">
+  <div class="logo-area">
+    <div class="logo-badge">WAR ROOM</div>
+    <div class="logo-sub">IBPS PO Mains</div>
+  </div>
+  <div class="phase-label" id="phaseLabel"><span id="phaseName">Phase 1</span><span id="phaseDay">Day 1</span></div>
+  <div class="phase-bar"><div class="phase-bar-fill" id="phaseBarFill" style="width:0%"></div></div>
+  <div class="nav">
+    <div class="nav-section">Core</div>
+    <div class="nav-item active" onclick="showPage('dashboard')"><span class="nav-icon">⚡</span><span>Dashboard</span></div>
+    <div class="nav-item" onclick="showPage('daily')"><span class="nav-icon">📋</span><span>Daily Plan</span></div>
+    <div class="nav-item" onclick="showPage('calendar')"><span class="nav-icon">📅</span><span>Calendar</span></div>
+    <div class="nav-section">Subjects</div>
+    <div class="nav-item" onclick="showPage('quant')"><span class="nav-icon">🔢</span><span>Quantitative</span></div>
+    <div class="nav-item" onclick="showPage('reasoning')"><span class="nav-icon">🧩</span><span>Reasoning</span></div>
+    <div class="nav-item" onclick="showPage('english')"><span class="nav-icon">📝</span><span>English</span></div>
+    <div class="nav-section">Knowledge</div>
+    <div class="nav-item" onclick="showPage('ca')"><span class="nav-icon">🌐</span><span>Current Affairs</span></div>
+    <div class="nav-item" onclick="showPage('computer')"><span class="nav-icon">💻</span><span>Computer</span></div>
+    <div class="nav-section">Performance</div>
+    <div class="nav-item" onclick="showPage('mocks')"><span class="nav-icon">🎯</span><span>Mock Tests</span></div>
+    <div class="nav-item" onclick="showPage('analytics')"><span class="nav-icon">📊</span><span>Analytics</span></div>
+  </div>
+  <div class="streak-widget">
+    <div class="streak-num" id="sideStreak">0</div>
+    <div class="streak-label">Day Streak 🔥</div>
+  </div>
+</nav>
+
+<!-- MAIN CONTENT -->
+<main class="main">
+
+<!-- ===== DASHBOARD PAGE ===== -->
+<div id="page-dashboard" class="page active">
+  <div class="page-header">
+    <div class="day-badge" id="dashDayNum">1</div>
+    <div class="header-info">
+      <div class="header-day-label">Current Study Day</div>
+      <div class="header-title" id="dashDayTitle">Foundation begins</div>
+      <div id="dashPhaseBadge" class="header-phase" style="background:rgba(74,158,255,0.1);color:#4a9eff;">
+        📘 Phase 1 — Foundation (Day 1–30)
+      </div>
+    </div>
+    <div class="header-date">
+      <strong id="dashDate">—</strong>
+      <span>Today's Date</span><br>
+      <span id="dashDaysLeft">— days to exam</span>
+    </div>
+  </div>
+
+  <div class="section">
+    <!-- Alert section -->
+    <div id="dashAlert"></div>
+
+    <!-- Stat Cards -->
+    <div class="grid-4" style="margin-bottom:24px;">
+      <div class="stat-card">
+        <div class="stat-label">Study Streak</div>
+        <div class="stat-num" style="color:var(--accent)" id="dashStreak">0</div>
+        <div class="stat-sub">consecutive days 🔥</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Consistency</div>
+        <div class="stat-num" style="color:var(--teal)" id="dashConsistency">0%</div>
+        <div class="stat-sub">days completed</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Overall Accuracy</div>
+        <div class="stat-num" style="color:var(--blue)" id="dashAccuracy">—</div>
+        <div class="stat-sub">across all subjects</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Days Remaining</div>
+        <div class="stat-num" style="color:var(--accent2)" id="dashDaysRemaining">90</div>
+        <div class="stat-sub">to exam readiness</div>
+      </div>
+    </div>
+
+    <!-- Today's Timetable Summary -->
+    <div class="section-title">Today's Battle Plan</div>
+    <div class="card" style="margin-bottom:24px;">
+      <div class="day-completion">
+        <div>
+          <div class="completion-pct" id="todayPct">0%</div>
+          <div class="completion-label">Daily Progress</div>
+          <div class="completion-done" id="todayDone">0 of 7 tasks completed</div>
+        </div>
+        <div style="flex:1;">
+          <div class="prog-bar" style="height:10px; margin-bottom:12px;">
+            <div class="prog-fill" id="todayProgFill" style="width:0%;background:var(--accent);"></div>
+          </div>
+          <div style="font-size:12px;color:var(--muted);">Complete all tasks to maintain your streak. Don't break the chain!</div>
+        </div>
+      </div>
+      <div class="timetable" id="dashTimetable"></div>
+      <div style="padding:14px 16px;display:flex;gap:10px;">
+        <button class="btn btn-accent btn-sm" onclick="markDayComplete()">✓ Mark Day Complete</button>
+        <button class="btn btn-sm" onclick="showPage('daily')">View Full Plan →</button>
+      </div>
+    </div>
+
+    <!-- Subject Accuracy + Weak Engine -->
+    <div class="grid-2">
+      <div>
+        <div class="section-title" style="font-size:16px;">Subject Accuracy</div>
+        <div class="card">
+          <div id="subjectAccuracyBars"></div>
+          <div style="margin-top:16px;font-size:11px;color:var(--muted);">
+            ⚠ Accuracy below 60% triggers automatic revision mode
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="section-title" style="font-size:16px;">Adaptive Engine</div>
+        <div id="weakAreaPanel"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== DAILY PLAN PAGE ===== -->
+<div id="page-daily" class="page">
+  <div class="page-header">
+    <div>
+      <div class="header-day-label">Daily Study Schedule</div>
+      <div class="header-title">Day-by-Day Master Plan</div>
+    </div>
+    <div style="display:flex;gap:10px;align-items:center;">
+      <button class="btn btn-sm" onclick="prevDay()">← Prev</button>
+      <span style="font-family:var(--mono);font-size:14px;min-width:60px;text-align:center;">Day <span id="viewDayNum">1</span></span>
+      <button class="btn btn-sm" onclick="nextDay()">Next →</button>
+      <button class="btn btn-accent btn-sm" onclick="goToToday()">Today</button>
+    </div>
+  </div>
+  <div class="section">
+    <div id="dailyPhaseAlert" style="margin-bottom:16px;"></div>
+    <div class="grid-2" style="margin-bottom:24px;">
+      <div class="card">
+        <div style="font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:2px;margin-bottom:8px;">Day Focus</div>
+        <div id="dailyFocus" style="font-size:16px;font-weight:600;"></div>
+        <div id="dailyPhase" style="margin-top:8px;font-size:12px;color:var(--muted);"></div>
+      </div>
+      <div class="card">
+        <div style="font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:2px;margin-bottom:10px;">Difficulty Level</div>
+        <div id="difficultyMeter" style="display:flex;gap:6px;"></div>
+        <div id="difficultyLabel" style="font-size:12px;color:var(--muted);margin-top:8px;"></div>
+      </div>
+    </div>
+    <div class="section-title">Full Timetable (9 AM – 8 PM)</div>
+    <div class="card" style="padding:0;overflow:hidden;">
+      <div class="timetable" id="fullTimetable"></div>
+    </div>
+    <div style="margin-top:20px;">
+      <div class="section-title" style="font-size:16px;">Study Notes & Tips</div>
+      <div class="card" id="dayNotes"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== CALENDAR PAGE ===== -->
+<div id="page-calendar" class="page">
+  <div class="page-header">
+    <div>
+      <div class="header-day-label">90-Day Progress Calendar</div>
+      <div class="header-title">Study Calendar</div>
+    </div>
+    <div style="display:flex;gap:10px;">
+      <button class="btn btn-sm" onclick="prevMonth()">← Prev</button>
+      <span id="calMonthLabel" style="font-family:var(--display);font-size:20px;min-width:140px;text-align:center;"></span>
+      <button class="btn btn-sm" onclick="nextMonth()">Next →</button>
+    </div>
+  </div>
+  <div class="section">
+    <div class="grid-4" style="margin-bottom:24px;">
+      <div class="stat-card"><div class="stat-label">Total Days Done</div><div class="stat-num" style="color:var(--green)" id="calDone">0</div><div class="stat-sub">completed days</div></div>
+      <div class="stat-card"><div class="stat-label">Missed Days</div><div class="stat-num" style="color:var(--red)" id="calMissed">0</div><div class="stat-sub">skipped days</div></div>
+      <div class="stat-card"><div class="stat-label">Consistency %</div><div class="stat-num" style="color:var(--blue)" id="calConsistency">—</div><div class="stat-sub">completion rate</div></div>
+      <div class="stat-card"><div class="stat-label">Longest Streak</div><div class="stat-num" style="color:var(--accent)" id="calStreak">0</div><div class="stat-sub">consecutive days</div></div>
+    </div>
+    <div class="card" style="margin-bottom:20px;">
+      <div style="display:flex;gap:16px;margin-bottom:16px;flex-wrap:wrap;">
+        <div style="display:flex;align-items:center;gap:6px;font-size:12px;"><div style="width:12px;height:12px;border-radius:3px;background:rgba(46,204,113,0.3);"></div> Completed</div>
+        <div style="display:flex;align-items:center;gap:6px;font-size:12px;"><div style="width:12px;height:12px;border-radius:3px;background:rgba(231,76,60,0.2);"></div> Missed</div>
+        <div style="display:flex;align-items:center;gap:6px;font-size:12px;"><div style="width:12px;height:12px;border-radius:3px;background:var(--accent);"></div> Today</div>
+        <div style="display:flex;align-items:center;gap:6px;font-size:12px;"><div style="width:12px;height:12px;border-radius:3px;background:var(--bg3);border:1px solid var(--border);"></div> Future</div>
+      </div>
+      <div id="calendarGrid"></div>
+    </div>
+    <div class="section-title" style="font-size:16px;">Phase Timeline</div>
+    <div class="card" id="phaseTimeline"></div>
+  </div>
+</div>
+
+<!-- ===== QUANT PAGE ===== -->
+<div id="page-quant" class="page">
+  <div class="page-header">
+    <div>
+      <div class="header-day-label">Quantitative Aptitude</div>
+      <div class="header-title">DI + Arithmetic Mastery</div>
+    </div>
+    <div id="quantAccBadge" class="badge" style="font-size:14px;padding:8px 16px;"></div>
+  </div>
+  <div class="section">
+    <div class="tabs" id="quantTabs">
+      <div class="tab active" onclick="switchTab('quant','arithmetic')">Arithmetic</div>
+      <div class="tab" onclick="switchTab('quant','di')">Data Interpretation</div>
+      <div class="tab" onclick="switchTab('quant','practice')">Log Practice</div>
+    </div>
+    <div id="quant-arithmetic" class="tab-panel active">
+      <div class="section-title" style="font-size:16px;">Arithmetic Topics — Phase-wise Progression</div>
+      <div id="quantArithmeticTopics"></div>
+    </div>
+    <div id="quant-di" class="tab-panel">
+      <div class="section-title" style="font-size:16px;">Data Interpretation</div>
+      <div id="quantDITopics"></div>
+    </div>
+    <div id="quant-practice" class="tab-panel">
+      <div class="section-title" style="font-size:16px;">Log Your Practice Session</div>
+      <div class="card" style="max-width:500px;">
+        <div class="form-row"><div class="form-label">Topic</div><input type="text" id="qTopic" placeholder="e.g. Profit & Loss" style="flex:1;"></div>
+        <div class="form-row"><div class="form-label">Questions Attempted</div><input type="number" id="qAttempted" placeholder="30" style="width:100px;"></div>
+        <div class="form-row"><div class="form-label">Correct Answers</div><input type="number" id="qCorrect" placeholder="22" style="width:100px;"></div>
+        <div class="form-row"><div class="form-label">Time Taken (min)</div><input type="number" id="qTime" placeholder="40" style="width:100px;"></div>
+        <button class="btn btn-accent" onclick="logPractice('quant')">Log Session</button>
+      </div>
+      <div style="margin-top:20px;" id="quantLogList"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== REASONING PAGE ===== -->
+<div id="page-reasoning" class="page">
+  <div class="page-header">
+    <div>
+      <div class="header-day-label">Logical Reasoning</div>
+      <div class="header-title">Puzzles, Seating, Direction</div>
+    </div>
+    <div id="reasoningAccBadge" class="badge" style="font-size:14px;padding:8px 16px;"></div>
+  </div>
+  <div class="section">
+    <div class="tabs">
+      <div class="tab active" onclick="switchTab('reasoning','topics')">Topics</div>
+      <div class="tab" onclick="switchTab('reasoning','practice')">Log Practice</div>
+    </div>
+    <div id="reasoning-topics" class="tab-panel active">
+      <div id="reasoningTopics"></div>
+    </div>
+    <div id="reasoning-practice" class="tab-panel">
+      <div class="section-title" style="font-size:16px;">Log Practice Session</div>
+      <div class="card" style="max-width:500px;">
+        <div class="form-row"><div class="form-label">Topic</div><input type="text" id="rTopic" placeholder="e.g. Floor Puzzle" style="flex:1;"></div>
+        <div class="form-row"><div class="form-label">Questions Attempted</div><input type="number" id="rAttempted" placeholder="20" style="width:100px;"></div>
+        <div class="form-row"><div class="form-label">Correct Answers</div><input type="number" id="rCorrect" placeholder="15" style="width:100px;"></div>
+        <div class="form-row"><div class="form-label">Time Taken (min)</div><input type="number" id="rTime" placeholder="35" style="width:100px;"></div>
+        <button class="btn btn-accent" onclick="logPractice('reasoning')">Log Session</button>
+      </div>
+      <div style="margin-top:20px;" id="reasoningLogList"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== ENGLISH PAGE ===== -->
+<div id="page-english" class="page">
+  <div class="page-header">
+    <div>
+      <div class="header-day-label">English Language</div>
+      <div class="header-title">RC, Cloze, Para-Jumbles</div>
+    </div>
+    <div id="englishAccBadge" class="badge" style="font-size:14px;padding:8px 16px;"></div>
+  </div>
+  <div class="section">
+    <div class="tabs">
+      <div class="tab active" onclick="switchTab('english','topics')">Topics</div>
+      <div class="tab" onclick="switchTab('english','practice')">Log Practice</div>
+    </div>
+    <div id="english-topics" class="tab-panel active">
+      <div id="englishTopics"></div>
+    </div>
+    <div id="english-practice" class="tab-panel">
+      <div class="section-title" style="font-size:16px;">Log Practice Session</div>
+      <div class="card" style="max-width:500px;">
+        <div class="form-row"><div class="form-label">Topic</div><input type="text" id="eTopic" placeholder="e.g. RC Passage" style="flex:1;"></div>
+        <div class="form-row"><div class="form-label">Questions Attempted</div><input type="number" id="eAttempted" placeholder="20" style="width:100px;"></div>
+        <div class="form-row"><div class="form-label">Correct Answers</div><input type="number" id="eCorrect" placeholder="14" style="width:100px;"></div>
+        <div class="form-row"><div class="form-label">Time Taken (min)</div><input type="number" id="eTime" placeholder="30" style="width:100px;"></div>
+        <button class="btn btn-accent" onclick="logPractice('english')">Log Session</button>
+      </div>
+      <div style="margin-top:20px;" id="englishLogList"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== CURRENT AFFAIRS PAGE ===== -->
+<div id="page-ca" class="page">
+  <div class="page-header">
+    <div>
+      <div class="header-day-label">General Awareness</div>
+      <div class="header-title">Current Affairs Tracker</div>
+    </div>
+    <div id="caCoverage" class="badge" style="font-size:14px;padding:8px 16px;background:rgba(74,158,255,0.1);color:var(--blue);">Coverage: 0%</div>
+  </div>
+  <div class="section">
+    <div class="grid-4" style="margin-bottom:24px;">
+      <div class="stat-card"><div class="stat-label">Topics Added</div><div class="stat-num" style="color:var(--blue)" id="caTotalAdded">0</div></div>
+      <div class="stat-card"><div class="stat-label">Revised</div><div class="stat-num" style="color:var(--green)" id="caRevised">0</div></div>
+      <div class="stat-card"><div class="stat-label">Days Covered</div><div class="stat-num" style="color:var(--accent)" id="caDaysCovered">0</div></div>
+      <div class="stat-card"><div class="stat-label">Missed Days</div><div class="stat-num" style="color:var(--red)" id="caMissed">0</div></div>
+    </div>
+    <div class="tabs">
+      <div class="tab active" onclick="switchTab('ca','daily')">Daily Log</div>
+      <div class="tab" onclick="switchTab('ca','weekly')">Weekly Revision</div>
+      <div class="tab" onclick="switchTab('ca','categories')">Categories</div>
+    </div>
+    <div id="ca-daily" class="tab-panel active">
+      <div class="card" style="margin-bottom:16px;">
+        <div style="font-size:13px;font-weight:600;margin-bottom:12px;">Add Today's Current Affairs</div>
+        <div class="form-row"><div class="form-label">Topic/Headline</div><input type="text" id="caNewTopic" placeholder="e.g. RBI repo rate unchanged at 6.5%" style="flex:1;"></div>
+        <div class="form-row">
+          <div class="form-label">Category</div>
+          <select id="caCategory" style="flex:1;">
+            <option value="Banking">Banking & Finance</option>
+            <option value="Economy">Economy</option>
+            <option value="Government">Government/Policy</option>
+            <option value="International">International</option>
+            <option value="Awards">Awards & Honours</option>
+            <option value="Sports">Sports</option>
+            <option value="Science">Science & Tech</option>
+            <option value="Defence">Defence</option>
+            <option value="Appointments">Appointments</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+        <button class="btn btn-accent btn-sm" onclick="addCA()">+ Add Topic</button>
+      </div>
+      <div id="caList"></div>
+    </div>
+    <div id="ca-weekly" class="tab-panel">
+      <div id="caWeeklyRevision"></div>
+    </div>
+    <div id="ca-categories" class="tab-panel">
+      <div id="caCategoryBreakdown"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== COMPUTER AWARENESS PAGE ===== -->
+<div id="page-computer" class="page">
+  <div class="page-header">
+    <div>
+      <div class="header-day-label">Computer Knowledge</div>
+      <div class="header-title">Structured Module Checklist</div>
+    </div>
+    <div id="computerProgress" class="badge" style="font-size:14px;padding:8px 16px;background:rgba(155,89,182,0.1);color:var(--purple);">0% Complete</div>
+  </div>
+  <div class="section">
+    <div style="margin-bottom:24px;">
+      <div class="prog-bar" style="height:8px;"><div class="prog-fill" id="computerProgFill" style="width:0%;background:var(--purple);"></div></div>
+      <div style="font-size:11px;color:var(--muted);margin-top:6px;"><span id="computerDoneCount">0</span> of <span id="computerTotalCount">0</span> topics completed</div>
+    </div>
+    <div id="computerModules"></div>
+  </div>
+</div>
+
+<!-- ===== MOCK TESTS PAGE ===== -->
+<div id="page-mocks" class="page">
+  <div class="page-header">
+    <div>
+      <div class="header-day-label">Mock Test System</div>
+      <div class="header-title">Track Your Performance</div>
+    </div>
+    <button class="btn btn-accent" onclick="openAddMock()">+ Log Mock Test</button>
+  </div>
+  <div class="section">
+    <div id="mockUnlockAlert" style="margin-bottom:16px;"></div>
+    <div id="addMockForm" style="display:none;margin-bottom:24px;">
+      <div class="card">
+        <div style="font-size:14px;font-weight:600;margin-bottom:16px;">Log New Mock Test</div>
+        <div class="grid-2">
+          <div>
+            <div class="form-row"><div class="form-label">Test Type</div>
+              <select id="mockType" style="flex:1;"><option value="mini">Mini Mock (Day 30+)</option><option value="full">Full Mock (Day 60+)</option></select>
+            </div>
+            <div class="form-row"><div class="form-label">Total Score</div><input type="number" id="mockScore" placeholder="120" style="width:100px;"> <span style="font-size:12px;color:var(--muted);margin-left:8px;">/ 200</span></div>
+            <div class="form-row"><div class="form-label">Quant Score</div><input type="number" id="mockQuant" placeholder="28" style="width:100px;"> <span style="font-size:12px;color:var(--muted);margin-left:8px;">/ 60</span></div>
+          </div>
+          <div>
+            <div class="form-row"><div class="form-label">Reasoning Score</div><input type="number" id="mockReasoning" placeholder="30" style="width:100px;"> <span style="font-size:12px;color:var(--muted);margin-left:8px;">/ 60</span></div>
+            <div class="form-row"><div class="form-label">English Score</div><input type="number" id="mockEnglish" placeholder="25" style="width:100px;"> <span style="font-size:12px;color:var(--muted);margin-left:8px;">/ 40</span></div>
+            <div class="form-row"><div class="form-label">GA Score</div><input type="number" id="mockGA" placeholder="20" style="width:100px;"> <span style="font-size:12px;color:var(--muted);margin-left:8px;">/ 40</span></div>
+          </div>
+        </div>
+        <div style="display:flex;gap:10px;">
+          <button class="btn btn-accent" onclick="saveMock()">Save Mock</button>
+          <button class="btn" onclick="document.getElementById('addMockForm').style.display='none'">Cancel</button>
+        </div>
+      </div>
+    </div>
+    <div id="mockList"></div>
+    <div id="mockEmpty" class="card" style="text-align:center;padding:40px;">
+      <div style="font-size:40px;margin-bottom:12px;">🎯</div>
+      <div style="font-size:16px;font-weight:600;margin-bottom:8px;">No mocks logged yet</div>
+      <div style="font-size:13px;color:var(--muted);">Mini mocks unlock on Day 30. Full mocks unlock on Day 60.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== ANALYTICS PAGE ===== -->
+<div id="page-analytics" class="page">
+  <div class="page-header">
+    <div>
+      <div class="header-day-label">Performance Analytics</div>
+      <div class="header-title">Deep Dive Insights</div>
+    </div>
+  </div>
+  <div class="section">
+    <div class="grid-2" style="margin-bottom:24px;">
+      <div>
+        <div class="section-title" style="font-size:16px;">Discipline Score</div>
+        <div class="card">
+          <div class="discipline-gauge">
+            <div class="disc-circle">
+              <svg width="100" height="100" viewBox="0 0 100 100">
+                <circle cx="50" cy="50" r="40" fill="none" stroke="var(--bg4)" stroke-width="8"/>
+                <circle cx="50" cy="50" r="40" fill="none" stroke="var(--accent)" stroke-width="8" stroke-dasharray="251.2" id="discCircle" stroke-dashoffset="251.2" stroke-linecap="round" transform="rotate(-90 50 50)"/>
+              </svg>
+              <div class="disc-num" id="discNum">0</div>
+            </div>
+            <div>
+              <div class="disc-label">Discipline Rating</div>
+              <div class="disc-title" id="discTitle">Getting Started</div>
+              <div class="disc-message" id="discMessage">Complete your daily tasks consistently to build your discipline score.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="section-title" style="font-size:16px;">Weekly Performance</div>
+        <div class="card" id="weeklyPerfCard">
+          <div style="height:80px;display:flex;align-items:flex-end;gap:4px;" id="weeklyChart"></div>
+          <div style="display:flex;justify-content:space-between;margin-top:8px;" id="weeklyLabels"></div>
+        </div>
+      </div>
+    </div>
+    <div class="section-title" style="font-size:16px;">Practice Session Log</div>
+    <div class="card" style="padding:0;overflow:hidden;">
+      <table class="analytics-table" id="analyticsTable">
+        <thead><tr><th>Date</th><th>Subject</th><th>Topic</th><th>Attempted</th><th>Correct</th><th>Accuracy</th><th>Time</th><th>Status</th></tr></thead>
+        <tbody id="analyticsTableBody"></tbody>
+      </table>
+      <div id="analyticsEmpty" style="padding:40px;text-align:center;color:var(--muted);font-size:13px;">No sessions logged yet. Start practicing!</div>
+    </div>
+  </div>
+</div>
+
+</main>
+</div>
+
+<script>
+// ===== STATE =====
+const START_DATE = new Date('2025-05-05'); // App start date (today)
+let state = JSON.parse(localStorage.getItem('ibps_state') || '{}');
+
+function initState() {
+  const defaults = {
+    completedDays: [],
+    missedDays: [],
+    tasksChecked: {},
+    practiceLog: [],
+    caTopics: [],
+    mockTests: [],
+    computerChecked: {},
+    currentViewDay: 1,
+    calViewMonth: new Date().getMonth(),
+    calViewYear: new Date().getFullYear(),
+    activeSubjectTabs: {}
+  };
+  for (const k in defaults) {
+    if (!(k in state)) state[k] = defaults[k];
+  }
+  save();
+}
+
+function save() {
+  localStorage.setItem('ibps_state', JSON.stringify(state));
+}
+
+// ===== TIME HELPERS =====
+function getToday() {
+  const now = new Date();
+  now.setHours(0,0,0,0);
+  return now;
+}
+
+function getDayNumber() {
+  const today = getToday();
+  const diff = Math.floor((today - START_DATE) / 86400000);
+  return Math.max(1, Math.min(90, diff + 1));
+}
+
+function getPhase(day) {
+  if (day <= 30) return 1;
+  if (day <= 60) return 2;
+  return 3;
+}
+
+function getPhaseColor(phase) {
+  return phase === 1 ? 'var(--phase1)' : phase === 2 ? 'var(--phase2)' : 'var(--phase3)';
+}
+
+function getDifficulty(day) {
+  if (day <= 10) return 1;
+  if (day <= 20) return 2;
+  if (day <= 30) return 3;
+  if (day <= 40) return 4;
+  if (day <= 50) return 5;
+  if (day <= 60) return 6;
+  if (day <= 70) return 7;
+  if (day <= 80) return 8;
+  return 9;
+}
+
+function formatDate(d) {
+  return d.toLocaleDateString('en-IN', {weekday:'short',day:'numeric',month:'short',year:'numeric'});
+}
+
+// ===== 90-DAY PLAN DATA =====
+const PHASE1_TOPICS = [
+  // Days 1-30 (index 0-29)
+  {focus:"Simplification & BODMAS",quant:"Simplification — BODMAS rules, fractions",reasoning:"Inequalities — coded inequalities",english:"Parts of Speech — Noun, Pronoun, Verb",ca:"Banking basics, RBI overview",computer:"Intro to Computers — generations, types"},
+  {focus:"Approximation Techniques",quant:"Approximation — rounding, estimation",reasoning:"Inequalities — direct comparison",english:"Parts of Speech — Adjective, Adverb",ca:"Indian Banking system structure",computer:"Input/Output devices"},
+  {focus:"Number Systems",quant:"Number system — types, divisibility rules",reasoning:"Syllogism — basic 2-statement",english:"Sentence correction — basic grammar",ca:"Types of banks in India",computer:"Memory — RAM, ROM, Cache"},
+  {focus:"HCF & LCM",quant:"HCF & LCM — factors, multiples",reasoning:"Syllogism — possibility cases",english:"Tenses — present tense forms",ca:"Monetary Policy basics",computer:"Storage devices — HDD, SSD, USB"},
+  {focus:"Simplification Mastery",quant:"Simplification practice — speed drills",reasoning:"Direction sense — basic 4-direction",english:"Tenses — past and future tense",ca:"NABARD, SIDBI, NHB roles",computer:"Software — System vs Application"},
+  {focus:"Number Series",quant:"Number series — pattern identification",reasoning:"Blood relations — direct relations",english:"Subject-Verb agreement",ca:"Financial institutions of India",computer:"Operating Systems basics"},
+  {focus:"Percentage Foundations",quant:"Percentages — concept, conversions",reasoning:"Blood relations — coded relations",english:"Active-Passive Voice — basic",ca:"Economic survey highlights",computer:"Windows OS features"},
+  {focus:"Percentage Applications",quant:"Percentages — percentage increase/decrease",reasoning:"Seating arrangement — linear single row",english:"Direct-Indirect Speech",ca:"Budget 2024 key points",computer:"File management system"},
+  {focus:"Ratio & Proportion",quant:"Ratio & Proportion — basics",reasoning:"Seating arrangement — linear two rows",english:"Error detection — basic sentences",ca:"India's GDP growth rate",computer:"Network basics — LAN, WAN, MAN"},
+  {focus:"Ratio Applications",quant:"Ratio applications — mixtures intro",reasoning:"Seating arrangement — circular basic",english:"Cloze test — basic fill-in",ca:"RBI Governor and key rates",computer:"Internet — WWW, HTTP, browser"},
+  {focus:"Profit & Loss Basics",quant:"Profit & Loss — cost price, selling price, markup",reasoning:"Coding-Decoding — letter shifting",english:"Reading Comprehension — factual passages",ca:"SEBI functions and regulations",computer:"Email system, protocols (SMTP, POP3)"},
+  {focus:"Profit & Loss Advanced",quant:"P&L — discount, successive discounts, marked price",reasoning:"Coding-Decoding — number coding",english:"RC — inference-based questions",ca:"Stock markets BSE, NSE basics",computer:"Network protocols — TCP/IP, FTP"},
+  {focus:"Simple Interest",quant:"Simple Interest — formula applications",reasoning:"Coding-Decoding — symbol coding",english:"Para-jumbles — 4-sentence basic",ca:"Mutual Funds, SIP basics",computer:"Cybersecurity — viruses, malware"},
+  {focus:"Compound Interest",quant:"Compound Interest — annual/half-yearly",reasoning:"Order-Ranking — position from both ends",english:"Para-jumbles — 5-sentence sets",ca:"Insurance basics — LIC, GIC",computer:"Data security, encryption basics"},
+  {focus:"SI & CI Comparison",quant:"SI vs CI — comparison problems",reasoning:"Puzzle — Box-based simple",english:"Vocabulary — synonyms/antonyms",ca:"Pradhan Mantri Schemes overview",computer:"HTML basics — webpage structure"},
+  {focus:"Time & Work Intro",quant:"Time & Work — concept of efficiency",reasoning:"Puzzle — Month-Year puzzle",english:"Vocabulary — word usage in context",ca:"Digital India initiatives",computer:"Programming basics — algorithms"},
+  {focus:"Time & Work Applications",quant:"Time & Work — pipes and cisterns",reasoning:"Puzzle — Floor puzzle 5-people",english:"Sentence improvement",ca:"Make in India, Startup India",computer:"Database basics — DBMS concepts"},
+  {focus:"Time, Speed & Distance",quant:"Time-Speed-Distance — basic formula",reasoning:"Input-Output — shift series",english:"Fill in the blanks — double blank",ca:"Infrastructure projects — highways, railways",computer:"SQL basics — SELECT, WHERE"},
+  {focus:"TSD — Trains & Boats",quant:"TSD — trains, boats & streams",reasoning:"Input-Output — compound operation",english:"Spotting errors — advanced",ca:"Agriculture schemes, MSP",computer:"Computer networks — OSI model layers"},
+  {focus:"Averages & Mixture",quant:"Averages + Mixture-Alligation basic",reasoning:"Miscellaneous — machine input-output",english:"Cloze test — 10 blanks",ca:"Environmental policy, climate goals",computer:"Cloud computing basics"},
+  {focus:"Mensuration Basics",quant:"Mensuration 2D — area, perimeter basics",reasoning:"Seating — circular with conditions",english:"RC — longer passage 600 words",ca:"India's foreign policy highlights",computer:"AI & ML basics overview"},
+  {focus:"Speed Math Drills",quant:"Speed math — 50Q mixed simplification drill",reasoning:"Inequality + Syllogism combo",english:"Grammar revision — all tenses",ca:"Science & technology news review",computer:"Computer awareness MCQ revision"},
+  {focus:"Phase 1 Weak Review",quant:"Revision — P&L, SI/CI weak areas",reasoning:"Puzzle marathon — 3 puzzles timed",english:"Full RC + cloze revision",ca:"Weekly CA quiz — Banking focus",computer:"Revision — basics + networking"},
+  {focus:"Foundation Assessment",quant:"Mixed arithmetic — 40Q timed (45 min)",reasoning:"Mixed reasoning — 30Q timed",english:"English mixed — 30Q timed",ca:"Current affairs daily update",computer:"Computer mock — 20Q"},
+  {focus:"Data Tables — DI Intro",quant:"DI — Table chart reading basics",reasoning:"Puzzle — Day-Person table puzzle",english:"Error detection — 15 sentences",ca:"International summits, G20",computer:"MS Office — Excel, Word, PPT"},
+  {focus:"Bar Graph DI",quant:"DI — Bar graph comparison",reasoning:"Direction — complex 6-step problems",english:"Para-completion questions",ca:"Sports news — recent tournaments",computer:"Banking software — CBS, RTGS, NEFT"},
+  {focus:"Line & Pie Chart",quant:"DI — Line graph + Pie chart",reasoning:"Blood relations complex — coded",english:"Vocabulary — banking terms",ca:"Awards & honours review",computer:"Digital payment systems — UPI, IMPS"},
+  {focus:"Mixed DI Practice",quant:"DI — Mixed 2-set practice",reasoning:"Seating + Floor combo puzzle",english:"RC — economy-based passage",ca:"Important appointments — governors, CEOs",computer:"Fintech basics — blockchain, crypto basics"},
+  {focus:"Revision Day",quant:"Full arithmetic topics revision",reasoning:"All reasoning types — quick revision",english:"All English types — rapid revision",ca:"Monthly CA revision — May topics",computer:"Full computer awareness revision"},
+  {focus:"Phase 1 Culmination",quant:"Full Phase 1 mock — Quant 40Q",reasoning:"Full Phase 1 mock — Reasoning 35Q",english:"Full Phase 1 mock — English 30Q",ca:"CA summary — banking & economy",computer:"Computer mock test — 25Q"}
+];
+
+const PHASE2_TOPICS = [
+  // Days 31-60 (index 0-29)
+  {focus:"Advanced Profit & Loss",quant:"P&L — dishonest dealer, false weights",reasoning:"Puzzle — Linear 8 people with professions",english:"RC — finance/economy passage advanced",ca:"RBI policy review, repo rate",computer:"Advanced networking — DNS, DHCP, IP"},
+  {focus:"Partnership Problems",quant:"Partnership — time-based profit sharing",reasoning:"Puzzle — Circular with blood relations",english:"Cloze test — banking vocabulary",ca:"Budget analysis — direct taxes",computer:"Network security — firewall, VPN"},
+  {focus:"Percentage — Advanced",quant:"Percentages — election, population growth",reasoning:"Seating — Double row + directions",english:"Para-jumbles — 6 sentences",ca:"Trade deficit, current account balance",computer:"Computer organization — CPU, ALU"},
+  {focus:"Compound Interest — Instalments",quant:"CI — instalments, depreciation",reasoning:"Puzzle — Month-floor-person matrix",english:"Sentence connectors",ca:"Inflation indices — CPI, WPI",computer:"Memory hierarchy — levels explained"},
+  {focus:"Quadratic Equations",quant:"Quadratic equations — roots, relation",reasoning:"Input-Output — 4-step complex",english:"Error spotting — advanced grammar",ca:"Government budget expenditure",computer:"Programming — flowcharts, pseudocode"},
+  {focus:"DI Tables — Advanced",quant:"DI Tables — 5-table set, 5 questions",reasoning:"Syllogism — 3 statements",english:"RC — social policy passage",ca:"Social welfare schemes update",computer:"Data structures — array, stack, queue"},
+  {focus:"Data Sufficiency",quant:"Data Sufficiency — number system+arithmetic",reasoning:"Data Sufficiency — reasoning type",english:"Word usage — same root words",ca:"Infrastructure — Smart Cities, AMRUT",computer:"Algorithm design — sorting basics"},
+  {focus:"Number Series Advanced",quant:"Number series — missing, wrong number",reasoning:"Puzzle — Floor puzzle 8 people, 2 variables",english:"Reading Comprehension strategy session",ca:"Agriculture — Kisan schemes, irrigation",computer:"Operating systems — process management"},
+  {focus:"Time & Work — Advanced",quant:"Time & Work — alternate days, efficiency chains",reasoning:"Puzzle — Box puzzle with colors",english:"Cloze test — double passage",ca:"Science & technology — ISRO missions",computer:"Databases — SQL advanced — JOIN, GROUP"},
+  {focus:"Bar + Line DI",quant:"DI — Bar + Line combined set",reasoning:"Seating — Circular + conditions (complex)",english:"Para-jumbles — topic-based",ca:"International relations — major events",computer:"Cybersecurity — phishing, ransomware"},
+  {focus:"Mixture & Alligation",quant:"Mixture & Alligation — advanced blending",reasoning:"Blood relations — tree + coded combo",english:"Fill in the blanks — phrasal verbs",ca:"Defence news — exercises, acquisitions",computer:"Cloud services — SaaS, PaaS, IaaS"},
+  {focus:"Speed-Distance Advanced",quant:"TSD — circular track, escalator problems",reasoning:"Direction — multi-step with coordinates",english:"Vocabulary in RC context",ca:"Environmental news — Green energy",computer:"IoT basics — smart devices"},
+  {focus:"Caselet DI — Intro",quant:"Caselet DI — paragraph-based data",reasoning:"Puzzle — Scheduling/Timetable puzzle",english:"RC — inference + tone questions",ca:"Banking sector — NPA, restructuring",computer:"Digital India — e-governance portals"},
+  {focus:"Mensuration — 3D",quant:"Mensuration — 3D shapes, volume surface area",reasoning:"Coding-Decoding — matrix type",english:"Sentence rearrangement — theme-based",ca:"G20 outcomes, multilateral meetings",computer:"Artificial Intelligence applications"},
+  {focus:"Probability Basics",quant:"Probability — basic events, combinations",reasoning:"Miscellaneous — Critical reasoning",english:"RC — current events passage",ca:"State governors, CMs, key appointments",computer:"Machine Learning — supervised basics"},
+  {focus:"Permutation & Combination",quant:"P&C — arrangements, selections basic",reasoning:"Puzzle — Blood relation + seating combo",english:"Cloze — academic vocabulary",ca:"Corporate mergers, bank mergers",computer:"Big Data basics — 3 Vs"},
+  {focus:"DI — Caselet Advanced",quant:"Caselet DI — mixed arithmetic calculations",reasoning:"Complex puzzle marathon — 4 types",english:"Error detection — sentences from RCs",ca:"Poverty indices, HDI rankings",computer:"Blockchain — basics and applications"},
+  {focus:"Ratio — Complex Apps",quant:"Ratio advanced — partnership + alligation combo",reasoning:"Seating + coding hybrid puzzle",english:"Vocabulary — confusing word pairs",ca:"World Health Organization news",computer:"Computer hardware — motherboard, GPU"},
+  {focus:"Arithmetic Mega Revision",quant:"Full arithmetic revision — all formulas",reasoning:"All puzzle types — timed 45 min",english:"RC + cloze + para-jumbles combo",ca:"Monthly review — June CA",computer:"Full stack revision — networks + DB"},
+  {focus:"Speed Building Day",quant:"50Q arithmetic — target: 35 min",reasoning:"35Q mixed — target: 30 min",english:"40Q English — target: 25 min",ca:"Current affairs quiz — economy focus",computer:"Computer speed test — 30Q, 15 min"},
+  {focus:"Pie Chart + Percentage",quant:"DI — Pie + percentage combo set",reasoning:"Puzzle — Linear + Floor hybrid",english:"RC comprehension — comprehension speed",ca:"Awards — Padma awards, Nobel prizes",computer:"Software development life cycle basics"},
+  {focus:"Missing DI",quant:"DI — Missing data table + line graph",reasoning:"Input-Output advanced — word-number",english:"Para-jumbles — paragraph completion",ca:"India's space programme updates",computer:"Computer virus types — Trojan, worm"},
+  {focus:"Approximation + Simplification",quant:"Approximation + simplification marathon",reasoning:"Syllogism advanced — possibility + conclusion",english:"Fill in the blanks — prepositions, conjunctions",ca:"Finance sector news — IPO, FDI",computer:"Computer awareness GK MCQ bank"},
+  {focus:"Miscellaneous Topics",quant:"Ages, partnership, pipes combined practice",reasoning:"Critical reasoning — strengthening, weakening",english:"RC — editorial passage",ca:"Sports — cricket, hockey major events",computer:"Revision — AI, IoT, blockchain"},
+  {focus:"Mini Mock Test #1",quant:"Mock Quant — 35Q, 45 min",reasoning:"Mock Reasoning — 35Q, 45 min",english:"Mock English — 30Q, 30 min",ca:"Full CA quiz — 40Q",computer:"Mock Computer — 20Q"},
+  {focus:"Mock Analysis Day",quant:"Weak area from Mock 1 — target drills",reasoning:"Puzzle types where errors occurred",english:"Grammar areas with errors",ca:"CA revision — missed topics",computer:"Computer weak topics — revision"},
+  {focus:"Advanced Number Series",quant:"Number series — ratio based, quadratic pattern",reasoning:"Puzzle — Scheduling + Capacity",english:"RC — dense financial passage",ca:"RBI circular updates",computer:"Compiler, interpreter, assembler basics"},
+  {focus:"Complex DI Sets",quant:"DI — 3 sets back to back (3 sets × 5Q)",reasoning:"Seating — 10 people, 2 variables",english:"Vocabulary intensive — 30 new words",ca:"International economic news",computer:"Computer peripherals — scanner, plotter"},
+  {focus:"Phase 2 Revision",quant:"Full phase 2 topics — rapid recall",reasoning:"Comprehensive puzzle revision",english:"All English types — strategy review",ca:"Phase 2 CA full revision",computer:"All computer modules recap"},
+  {focus:"Phase 2 Assessment",quant:"Phase 2 mock — Quant 40Q, 50 min",reasoning:"Phase 2 mock — Reasoning 40Q, 50 min",english:"Phase 2 mock — English 35Q, 40 min",ca:"Comprehensive CA test — 50Q",computer:"Computer comprehensive — 30Q"}
+];
+
+const PHASE3_TOPICS = [
+  // Days 61-90 (index 0-29)
+  {focus:"High Level DI — Radar/Mixed",quant:"DI — Radar chart + pie combo",reasoning:"Puzzle — Complex 2-variable grid",english:"RC — abstract/literature passage",ca:"Current month CA — first week",computer:"Advanced computer topics revision"},
+  {focus:"Puzzle Marathon",quant:"DI mixed + caselet 40Q, 45 min",reasoning:"Puzzle marathon — 5 puzzles, 50 min",english:"Cloze + para-jumbles + error spotting",ca:"Banking regulation news",computer:"Computer science concepts — networking"},
+  {focus:"Caselet DI Mastery",quant:"Caselet DI — 4 sets mixed",reasoning:"Blood + seating + direction combo",english:"RC speed — 2 passages in 20 min",ca:"Government policy updates",computer:"Data security advanced — SSL, HTTPS"},
+  {focus:"Time-Bound Quant",quant:"60Q mixed quant — 55 min TARGET",reasoning:"Complex puzzle — Floor+Circular combined",english:"Error detection speed — 20Q, 10 min",ca:"International summit outcomes",computer:"Computer mock — 25Q, 12 min"},
+  {focus:"Critical Reasoning",quant:"Number series + caselet combined set",reasoning:"Critical reasoning — 3-argument problems",english:"RC editorial — 2 passages",ca:"Appointments — central/state",computer:"Computer architecture — von Neumann"},
+  {focus:"DI + Caselet Full Set",quant:"Full length DI section — 5 sets × 5Q",reasoning:"Puzzle — Train seating + floor combined",english:"Vocabulary — banking/finance terms mastery",ca:"Economic indicators review",computer:"Computer languages overview"},
+  {focus:"Full Mock #2",quant:"Full mock — Quant 60Q, 60 min",reasoning:"Full mock — Reasoning 60Q, 60 min",english:"Full mock — English 40Q, 40 min",ca:"Full CA test — 40Q, 20 min",computer:"Full Computer test — 20Q, 10 min"},
+  {focus:"Mock 2 Deep Analysis",quant:"Identify top 3 weak quant areas",reasoning:"Identify weak puzzle types",english:"Weak English areas — targeted practice",ca:"CA gaps — fill missed topics",computer:"Weak computer topics — targeted"},
+  {focus:"Weak Area Blitz — Quant",quant:"Targeted weak area — 50Q focused",reasoning:"Puzzle — fresh 4 puzzles",english:"RC passages — comprehension speed",ca:"Weekly CA revision",computer:"Computer revision cycle 3"},
+  {focus:"Speed + Accuracy Balance",quant:"Timed drill — 45Q, 40 min (speed mode)",reasoning:"Timed drill — 40Q, 35 min",english:"Timed drill — 35Q, 30 min",ca:"CA daily additions",computer:"Computer MCQ speed test"},
+  {focus:"High Level Puzzle Week",quant:"DI — complex caselet, missing data",reasoning:"Puzzle — 6-people, 3 variables",english:"RC — high difficulty passage",ca:"State bank news, mergers",computer:"Banking technology deep dive"},
+  {focus:"Full Mock #3",quant:"Full mock — Quant 60Q",reasoning:"Full mock — Reasoning 60Q",english:"Full mock — English 40Q",ca:"Full GA test — 40Q",computer:"Full Computer — 20Q"},
+  {focus:"Sectional Practice",quant:"Only DI — 5 sets, 50Q, 45 min",reasoning:"Only puzzles — 5 sets, 45 min",english:"Only RC — 4 passages, 40 min",ca:"Monthly CA compilation",computer:"Banking tech + fintech revision"},
+  {focus:"Mock Analysis + Weak Fix",quant:"Error analysis — mock 3 quant section",reasoning:"Error analysis — mock 3 reasoning",english:"Error analysis — mock 3 English",ca:"CA quiz — international focus",computer:"Computer weak spots targeted"},
+  {focus:"Advanced Arithmetic Blitz",quant:"Arithmetic advanced — 50Q marathon",reasoning:"Reasoning variety — 40Q mixed",english:"Vocabulary + grammar rapid revision",ca:"Awards, sports, appointments review",computer:"Computer overall mock — 30Q"},
+  {focus:"Full Mock #4",quant:"Full mock — all sections",reasoning:"Full mock — time-pressure mode",english:"Full mock — focus on accuracy",ca:"Full GA — 40Q",computer:"Full Computer — 20Q"},
+  {focus:"Mock 4 Deep Analysis",quant:"Revisit every wrong quant answer",reasoning:"Revisit every wrong reasoning set",english:"Revisit every wrong English answer",ca:"CA deep revision — economy special",computer:"Computer deep revision"},
+  {focus:"Sectional Focus — Quant",quant:"60Q quant blitz — 55 min target",reasoning:"30Q reasoning — 25 min (maintenance)",english:"30Q English — 25 min (maintenance)",ca:"CA current month — all categories",computer:"Computer awareness — banking tech"},
+  {focus:"Sectional Focus — Reasoning",quant:"30Q quant — maintenance mode",reasoning:"60Q reasoning blitz — 55 min",english:"30Q English — maintenance",ca:"CA daily log",computer:"Computer revision"},
+  {focus:"Sectional Focus — English",quant:"30Q quant — maintenance",reasoning:"30Q reasoning — maintenance",english:"60Q English blitz — 55 min",ca:"CA weekly revision",computer:"Computer MCQ marathon — 40Q"},
+  {focus:"Full Mock #5",quant:"Full mock — 200 marks",reasoning:"Full mock — optimal section order",english:"Full mock — time management",ca:"Full GA — 40Q",computer:"Full Computer"},
+  {focus:"Heavy Revision Day",quant:"Formulas + shortcuts — rapid fire",reasoning:"All puzzle types — checklist review",english:"Grammar rules + RC strategy recap",ca:"Last 3 months CA — rapid revision",computer:"All modules — final checklist"},
+  {focus:"Full Mock #6 — Exam Simulation",quant:"Exam simulation — real exam conditions",reasoning:"Exam simulation — no breaks",english:"Exam simulation — strict timing",ca:"GA — exam simulation",computer:"Computer — exam simulation"},
+  {focus:"Analysis + Planning",quant:"Final quant weak topics — last fix",reasoning:"Final reasoning weak areas",english:"Final English gaps",ca:"CA revision — focus missed areas",computer:"Final computer topics"},
+  {focus:"Full Mock #7",quant:"Full mock — note every mistake",reasoning:"Full mock — puzzle strategy test",english:"Full mock — RC and cloze focus",ca:"GA full mock",computer:"Computer final mock"},
+  {focus:"Subject Masterclass",quant:"Master class — DI tricks + shortcuts",reasoning:"Master class — puzzle templates",english:"Master class — RC 90-second method",ca:"CA master revision — categories",computer:"Banking tech master revision"},
+  {focus:"Final Weak Area Sprint",quant:"All remaining weak topics — rapid fire",reasoning:"All weak puzzle types — final drill",english:"Weak English areas — final fix",ca:"Final CA additions",computer:"Final computer revision"},
+  {focus:"Full Mock #8 — Peak Mode",quant:"Peak mode mock — compete with yourself",reasoning:"Peak mode — best score attempt",english:"Peak mode — accuracy goal 90%",ca:"Full GA — target 35+",computer:"Computer — target 18+"},
+  {focus:"Revision + Consolidation",quant:"Consolidation — key formulas, tricks",reasoning:"Consolidation — puzzle approaches",english:"Consolidation — grammar rules, RC",ca:"Final month CA summary",computer:"Complete computer awareness summary"},
+  {focus:"EXAM READY — Final Day",quant:"Light revision — confidence building",reasoning:"Light puzzle practice",english:"Light RC + vocabulary",ca:"Final CA recap — last 30 days",computer:"Final computer overview"}
+];
+
+function getDayPlan(day) {
+  const phase = getPhase(day);
+  const idx = day - 1;
+  let data;
+  if (phase === 1) data = PHASE1_TOPICS[idx] || PHASE1_TOPICS[29];
+  else if (phase === 2) data = PHASE2_TOPICS[idx - 30] || PHASE2_TOPICS[29];
+  else data = PHASE3_TOPICS[idx - 60] || PHASE3_TOPICS[29];
+
+  const diff = getDifficulty(day);
+  const qCount = 20 + diff * 3;
+  const rCount = 15 + diff * 2;
+  const eCount = 15 + diff * 2;
+
+  return {
+    phase, diff,
+    focus: data.focus,
+    quant: data.quant,
+    reasoning: data.reasoning,
+    english: data.english,
+    ca: data.ca,
+    computer: data.computer,
+    blocks: buildTimetable(day, data, qCount, rCount, eCount)
+  };
+}
+
+function buildTimetable(day, data, qCount, rCount, eCount) {
+  const diff = getDifficulty(day);
+  const phase = getPhase(day);
+  const hasMock = (phase === 2 && day % 10 === 5) || phase === 3;
+
+  let blocks = [
+    {time:"9:00–9:30 AM", subject:"routine", title:"Morning Warm-up + CA Reading", qty:"Read Hindu/PIB headlines", color:"#7a7a99", tag:"WARMUP", isBreak:false},
+    {time:"9:30–11:30 AM", subject:"quant", title:`Quant: ${data.quant}`, qty:`${qCount} Questions`, color:"var(--phase1)", tag:"QUANT", isBreak:false},
+    {time:"11:30–11:45 AM", subject:"break", title:"Short Break — Walk 10 min", qty:"", color:"", tag:"BREAK", isBreak:true},
+    {time:"11:45–1:45 PM", subject:"reasoning", title:`Reasoning: ${data.reasoning}`, qty:`${rCount} Questions`, color:"var(--teal)", tag:"LOGIC", isBreak:false},
+    {time:"1:45–2:30 PM", subject:"break", title:"Lunch Break", qty:"Rest + Light meal", color:"", tag:"LUNCH", isBreak:true},
+    {time:"2:30–4:00 PM", subject:"english", title:`English: ${data.english}`, qty:`${eCount} Questions`, color:"var(--purple)", tag:"ENG", isBreak:false},
+    {time:"4:00–4:15 PM", subject:"break", title:"Short Break", qty:"", color:"", tag:"BREAK", isBreak:true},
+    {time:"4:15–5:15 PM", subject:"ca", title:`Current Affairs: ${data.ca}`, qty:"Read + note 10 topics", color:"var(--blue)", tag:"G.A.", isBreak:false},
+    {time:"5:15–6:00 PM", subject:"computer", title:`Computer: ${data.computer}`, qty:"Study + 15Q practice", color:"var(--accent2)", tag:"COMP", isBreak:false},
+    {time:"6:00–6:15 PM", subject:"break", title:"Evening Break + Tea", qty:"", color:"", tag:"BREAK", isBreak:true},
+  ];
+
+  if (hasMock && phase === 3) {
+    blocks.push({time:"6:15–7:15 PM", subject:"mock", title:"Full Mock / Sectional Test", qty:`${60 + diff * 2} Questions timed`, color:"var(--accent)", tag:"MOCK", isBreak:false});
+    blocks.push({time:"7:15–8:00 PM", subject:"revision", title:"Mock Analysis + Error Log", qty:"Note every wrong answer", color:"var(--accent2)", tag:"ANALYSIS", isBreak:false});
+  } else {
+    blocks.push({time:"6:15–7:15 PM", subject:"revision", title:`Revision: ${data.focus}`, qty:"Rapid recall + flashcards", color:"var(--accent)", tag:"REVISE", isBreak:false});
+    blocks.push({time:"7:15–8:00 PM", subject:"recap", title:"Daily Recap + Tomorrow's Plan", qty:"Note weak areas", color:"var(--muted)", tag:"RECAP", isBreak:false});
+  }
+
+  return blocks;
+}
+
+// ===== SUBJECT TOPICS =====
+const QUANT_ARITHMETIC_TOPICS = {
+  "Phase 1 — Foundation": [
+    {name:"Simplification & BODMAS", phase:1, day:1},
+    {name:"Approximation Techniques", phase:1, day:2},
+    {name:"Number Systems & Divisibility", phase:1, day:3},
+    {name:"HCF & LCM", phase:1, day:4},
+    {name:"Number Series (basic)", phase:1, day:6},
+    {name:"Percentages — Basic", phase:1, day:7},
+    {name:"Percentages — Applications", phase:1, day:8},
+    {name:"Ratio & Proportion", phase:1, day:9},
+    {name:"Profit & Loss — Basic", phase:1, day:11},
+    {name:"Profit & Loss — Advanced (Discounts)", phase:1, day:12},
+    {name:"Simple Interest", phase:1, day:13},
+    {name:"Compound Interest", phase:1, day:14},
+    {name:"Time & Work", phase:1, day:16},
+    {name:"Pipes & Cisterns", phase:1, day:17},
+    {name:"Time, Speed & Distance", phase:1, day:18},
+    {name:"Trains & Boats", phase:1, day:19},
+    {name:"Averages & Alligation (basic)", phase:1, day:20},
+    {name:"Mensuration 2D", phase:1, day:21},
+  ],
+  "Phase 2 — Power": [
+    {name:"P&L Advanced (False Weights)", phase:2, day:31},
+    {name:"Partnership (Time-based)", phase:2, day:32},
+    {name:"Percentages (Election/Population)", phase:2, day:33},
+    {name:"CI — Instalments & Depreciation", phase:2, day:34},
+    {name:"Quadratic Equations", phase:2, day:35},
+    {name:"Data Sufficiency", phase:2, day:37},
+    {name:"Number Series (Advanced)", phase:2, day:38},
+    {name:"Time & Work Advanced", phase:2, day:39},
+    {name:"Mixture & Alligation (Advanced)", phase:2, day:41},
+    {name:"TSD — Circular Track & Escalator", phase:2, day:42},
+    {name:"Mensuration 3D", phase:2, day:44},
+    {name:"Probability", phase:2, day:45},
+    {name:"Permutation & Combination", phase:2, day:46},
+  ],
+  "Phase 3 — Exam Level": [
+    {name:"DI Radar/Mixed Charts", phase:3, day:61},
+    {name:"Complex Caselet DI", phase:3, day:63},
+    {name:"Missing Data DI", phase:3, day:72},
+    {name:"Arithmetic Combo Problems", phase:3, day:75},
+    {name:"High Speed Calculation", phase:3, day:80},
+  ]
+};
+
+const QUANT_DI_TOPICS = {
+  "Phase 1 — DI Basics": [
+    {name:"Table Charts — Reading & Calculation", phase:1, day:25},
+    {name:"Bar Graphs — Comparison", phase:1, day:26},
+    {name:"Line Graphs", phase:1, day:27},
+    {name:"Pie Charts", phase:1, day:27},
+    {name:"Mixed DI (2 types)", phase:1, day:28},
+  ],
+  "Phase 2 — DI Mastery": [
+    {name:"Advanced Table Sets (5Q each)", phase:2, day:36},
+    {name:"Bar + Line Combined", phase:2, day:40},
+    {name:"Pie + Percentage Combo", phase:2, day:51},
+    {name:"Caselet DI — Paragraph Based", phase:2, day:43},
+    {name:"Missing Data Table", phase:2, day:52},
+  ],
+  "Phase 3 — Exam DI": [
+    {name:"Radar Charts", phase:3, day:61},
+    {name:"Full DI Section (5 sets)", phase:3, day:66},
+    {name:"Caselet Marathon (4 sets)", phase:3, day:63},
+    {name:"Time-bound DI (45 min, 50Q)", phase:3, day:64},
+  ]
+};
+
+const REASONING_TOPICS = {
+  "Phase 1 — Foundation": [
+    {name:"Inequalities — Coded & Direct", phase:1, day:1},
+    {name:"Syllogism — 2 Statement", phase:1, day:3},
+    {name:"Syllogism — Possibility Cases", phase:1, day:4},
+    {name:"Direction Sense — Basic", phase:1, day:5},
+    {name:"Blood Relations — Direct", phase:1, day:6},
+    {name:"Blood Relations — Coded", phase:1, day:7},
+    {name:"Seating — Linear (Single Row)", phase:1, day:8},
+    {name:"Seating — Linear (Two Rows)", phase:1, day:9},
+    {name:"Seating — Circular (Basic)", phase:1, day:10},
+    {name:"Coding-Decoding — Letter", phase:1, day:11},
+    {name:"Coding-Decoding — Number", phase:1, day:12},
+    {name:"Coding-Decoding — Symbol", phase:1, day:13},
+    {name:"Order-Ranking", phase:1, day:14},
+    {name:"Puzzle — Box Based", phase:1, day:15},
+    {name:"Puzzle — Month-Year", phase:1, day:16},
+    {name:"Puzzle — Floor (5 people)", phase:1, day:17},
+    {name:"Machine Input-Output — Basic", phase:1, day:18},
+  ],
+  "Phase 2 — Building Complexity": [
+    {name:"Puzzle — Linear 8 People + Professions", phase:2, day:31},
+    {name:"Puzzle — Circular with Blood Relations", phase:2, day:32},
+    {name:"Seating — Double Row + Directions", phase:2, day:33},
+    {name:"Puzzle — Month-Floor-Person Matrix", phase:2, day:34},
+    {name:"Input-Output — 4-step Complex", phase:2, day:35},
+    {name:"Syllogism — 3 Statements", phase:2, day:36},
+    {name:"Data Sufficiency — Reasoning", phase:2, day:37},
+    {name:"Puzzle — Floor 8 People, 2 Variables", phase:2, day:38},
+    {name:"Puzzle — Box Puzzle with Colors", phase:2, day:39},
+    {name:"Seating — Circular Complex", phase:2, day:40},
+    {name:"Direction — Complex 6-step", phase:2, day:41},
+    {name:"Puzzle — Scheduling/Timetable", phase:2, day:43},
+    {name:"Coding-Decoding — Matrix", phase:2, day:44},
+    {name:"Critical Reasoning Intro", phase:2, day:45},
+    {name:"Puzzle — Blood Relation + Seating Combo", phase:2, day:46},
+    {name:"Input-Output — Word-Number", phase:2, day:52},
+    {name:"Seating — 10 People, 2 Variables", phase:2, day:58},
+  ],
+  "Phase 3 — Exam Level": [
+    {name:"Complex 2-Variable Grid Puzzle", phase:3, day:61},
+    {name:"Blood + Seating + Direction Combo", phase:3, day:63},
+    {name:"Puzzle — Floor+Circular Combined", phase:3, day:65},
+    {name:"Critical Reasoning — 3-argument", phase:3, day:65},
+    {name:"Puzzle Marathon (5 puzzles, 50 min)", phase:3, day:62},
+    {name:"Seating Train + Floor Combined", phase:3, day:67},
+    {name:"Puzzle — Scheduling + Capacity", phase:3, day:71},
+  ]
+};
+
+const ENGLISH_TOPICS = {
+  "Phase 1 — Grammar Foundations": [
+    {name:"Parts of Speech — Noun, Pronoun, Verb, Adjective", phase:1, day:1},
+    {name:"Tenses — All 12 Forms", phase:1, day:4},
+    {name:"Subject-Verb Agreement", phase:1, day:7},
+    {name:"Active-Passive Voice", phase:1, day:8},
+    {name:"Direct-Indirect Speech", phase:1, day:9},
+    {name:"Error Detection — Basic", phase:1, day:10},
+    {name:"Cloze Test — Basic", phase:1, day:10},
+    {name:"Reading Comprehension — Factual", phase:1, day:11},
+    {name:"RC — Inference-based", phase:1, day:12},
+    {name:"Para-Jumbles — 4 Sentences", phase:1, day:13},
+    {name:"Para-Jumbles — 5 Sentences", phase:1, day:14},
+    {name:"Vocabulary — Synonyms/Antonyms", phase:1, day:15},
+    {name:"Sentence Improvement", phase:1, day:18},
+    {name:"Fill in Blanks — Double Blank", phase:1, day:18},
+  ],
+  "Phase 2 — Advanced Practice": [
+    {name:"RC — Economy/Finance Passages", phase:2, day:31},
+    {name:"Cloze Test — Banking Vocabulary", phase:2, day:32},
+    {name:"Para-Jumbles — 6 Sentences", phase:2, day:33},
+    {name:"Sentence Connectors", phase:2, day:34},
+    {name:"Error Spotting — Advanced", phase:2, day:35},
+    {name:"Word Usage — Same Root Words", phase:2, day:37},
+    {name:"RC — Social Policy Passages", phase:2, day:36},
+    {name:"Para-Completion Questions", phase:2, day:47},
+    {name:"Fill in Blanks — Phrasal Verbs", phase:2, day:41},
+    {name:"RC Speed Training", phase:2, day:49},
+    {name:"Vocabulary — Banking/Finance Terms", phase:2, day:46},
+    {name:"Confusing Word Pairs", phase:2, day:47},
+    {name:"Cloze — Double Passage", phase:2, day:39},
+  ],
+  "Phase 3 — Exam Mastery": [
+    {name:"RC Abstract/Literature Passages", phase:3, day:61},
+    {name:"High Difficulty RC — 2 Passages in 20 min", phase:3, day:63},
+    {name:"Error Detection Speed — 20Q in 10 min", phase:3, day:64},
+    {name:"Vocabulary Mastery — Banking Terms", phase:3, day:66},
+    {name:"60Q English Blitz (55 min)", phase:3, day:70},
+    {name:"Grammar Rules Final Revision", phase:3, day:72},
+  ]
+};
+
+// ===== COMPUTER AWARENESS MODULES =====
+const COMPUTER_MODULES = [
+  {name:"Module 1: Computer Basics", phase:1, topics:[
+    "History & generations of computers",
+    "Types of computers (analog, digital, hybrid)",
+    "Input devices (keyboard, mouse, scanner, etc.)",
+    "Output devices (monitor, printer, plotter)",
+    "Storage devices (HDD, SSD, USB, CD/DVD)",
+    "Memory types (RAM, ROM, Cache, Virtual)",
+    "CPU components (ALU, CU, Registers)",
+    "Number systems (Binary, Octal, Hex)",
+    "Boolean algebra basics",
+    "Computer ports and connectors"
+  ]},
+  {name:"Module 2: Software & OS", phase:1, topics:[
+    "Types of software (system vs application)",
+    "Operating systems (Windows, Linux, macOS)",
+    "Process management in OS",
+    "File system management",
+    "MS Office — Word features",
+    "MS Office — Excel formulas basics",
+    "MS Office — PowerPoint features",
+    "Compiler, interpreter, assembler differences",
+    "Programming languages overview (high/low level)",
+    "Software development life cycle (SDLC)"
+  ]},
+  {name:"Module 3: Networking & Internet", phase:2, topics:[
+    "Network types (LAN, WAN, MAN, PAN)",
+    "Network topologies (star, bus, ring, mesh)",
+    "OSI model — 7 layers explained",
+    "TCP/IP protocol suite",
+    "IP addressing (IPv4, IPv6)",
+    "DNS, DHCP functions",
+    "Internet protocols (HTTP, HTTPS, FTP, SMTP)",
+    "Email protocols (POP3, IMAP, SMTP)",
+    "Network devices (router, switch, hub, modem)",
+    "VPN, Proxy, Firewall concepts"
+  ]},
+  {name:"Module 4: Cybersecurity", phase:2, topics:[
+    "Types of cyber threats (virus, worm, Trojan)",
+    "Ransomware and spyware",
+    "Phishing and social engineering",
+    "Encryption types (symmetric, asymmetric)",
+    "SSL/TLS and HTTPS",
+    "Digital signatures and certificates",
+    "Firewall types and functions",
+    "Password security and 2FA",
+    "Cybercrime types and IT Act 2000",
+    "Safe browsing and security best practices"
+  ]},
+  {name:"Module 5: Database & Programming", phase:2, topics:[
+    "DBMS concepts (tables, keys, queries)",
+    "SQL basics (SELECT, INSERT, UPDATE, DELETE)",
+    "SQL advanced (JOIN, GROUP BY, HAVING)",
+    "Data structures (array, stack, queue, tree)",
+    "Algorithm basics (sorting, searching)",
+    "Flowcharts and pseudocode",
+    "Object-oriented programming concepts",
+    "HTML basics and web structure",
+    "Cloud computing (SaaS, PaaS, IaaS)",
+    "Big Data — 3 Vs (Volume, Velocity, Variety)"
+  ]},
+  {name:"Module 6: Banking Technology", phase:3, topics:[
+    "Core Banking System (CBS)",
+    "RTGS, NEFT, IMPS differences",
+    "UPI and digital payments ecosystem",
+    "Mobile banking apps (BHIM, PhonePe etc.)",
+    "ATM types and working",
+    "Cheque truncation system (CTS)",
+    "SWIFT system in banking",
+    "Blockchain basics and cryptocurrency",
+    "Fintech — AI in banking",
+    "RBI's digital payment initiatives"
+  ]},
+  {name:"Module 7: Emerging Technologies", phase:3, topics:[
+    "Artificial Intelligence fundamentals",
+    "Machine Learning — supervised vs unsupervised",
+    "Deep Learning basics",
+    "Internet of Things (IoT) — applications",
+    "Cloud vs Edge computing",
+    "Augmented Reality and Virtual Reality",
+    "5G technology basics",
+    "Quantum computing concepts",
+    "Robotics Process Automation (RPA)",
+    "Digital India & e-governance portals"
+  ]}
+];
+
+// ===== NAVIGATION =====
+function showPage(pageId) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  document.getElementById('page-'+pageId).classList.add('active');
+  const navItems = document.querySelectorAll('.nav-item');
+  navItems.forEach(n => {
+    if (n.getAttribute('onclick') && n.getAttribute('onclick').includes("'"+pageId+"'")) {
+      n.classList.add('active');
+    }
+  });
+  if (pageId === 'dashboard') renderDashboard();
+  if (pageId === 'daily') renderDailyPlan();
+  if (pageId === 'calendar') renderCalendar();
+  if (pageId === 'quant') renderSubject('quant');
+  if (pageId === 'reasoning') renderSubject('reasoning');
+  if (pageId === 'english') renderSubject('english');
+  if (pageId === 'ca') renderCA();
+  if (pageId === 'computer') renderComputer();
+  if (pageId === 'mocks') renderMocks();
+  if (pageId === 'analytics') renderAnalytics();
+}
+
+function switchTab(section, tab) {
+  const panels = document.querySelectorAll(`#page-${section} .tab-panel`);
+  const tabs = document.querySelectorAll(`#page-${section} .tabs .tab, #${section}Tabs .tab`);
+  panels.forEach(p => p.classList.remove('active'));
+  tabs.forEach(t => t.classList.remove('active'));
+  const panel = document.getElementById(`${section}-${tab}`);
+  if (panel) panel.classList.add('active');
+  event.target.classList.add('active');
+}
+
+// ===== DASHBOARD =====
+function renderDashboard() {
+  const today = getDayNumber();
+  const phase = getPhase(today);
+  const plan = getDayPlan(today);
+
+  document.getElementById('dashDayNum').textContent = today;
+  document.getElementById('dashDayTitle').textContent = plan.focus;
+  document.getElementById('dashDate').textContent = formatDate(new Date());
+
+  const daysLeft = 90 - today;
+  document.getElementById('dashDaysLeft').textContent = `${daysLeft} days to Day 90`;
+  document.getElementById('dashDaysRemaining').textContent = daysLeft;
+
+  const phaseColors = ['','rgba(74,158,255,0.1)','rgba(240,192,64,0.1)','rgba(255,107,53,0.1)'];
+  const phaseTextColors = ['','#4a9eff','#f0c040','#ff6b35'];
+  const phaseNames = ['','📘 Phase 1 — Foundation','⚡ Phase 2 — Building Power','🔥 Phase 3 — Exam Mode'];
+  const badge = document.getElementById('dashPhaseBadge');
+  badge.style.background = phaseColors[phase];
+  badge.style.color = phaseTextColors[phase];
+  badge.textContent = phaseNames[phase];
+
+  // Sidebar phase bar
+  const phaseProgress = phase === 1 ? ((today)/30*100) : phase === 2 ? ((today-30)/30*100) : ((today-60)/30*100);
+  document.getElementById('phaseBarFill').style.width = phaseProgress+'%';
+  document.getElementById('phaseBarFill').style.background = phaseTextColors[phase];
+  document.getElementById('phaseName').textContent = 'Phase '+phase;
+  document.getElementById('phaseDay').textContent = 'Day '+today;
+
+  // Streak & consistency
+  const streak = calcStreak();
+  const consistency = calcConsistency();
+  document.getElementById('dashStreak').textContent = streak;
+  document.getElementById('sideStreak').textContent = streak;
+  document.getElementById('dashConsistency').textContent = consistency+'%';
+
+  // Accuracy
+  const acc = calcOverallAccuracy();
+  document.getElementById('dashAccuracy').textContent = acc ? acc+'%' : '—';
+
+  // Alert
+  const alertEl = document.getElementById('dashAlert');
+  const todayStr = todayKey();
+  if (state.missedDays.includes(todayStr)) {
+    alertEl.innerHTML = `<div class="alert alert-danger">⚠️ Warning: Today is marked as missed. Complete your tasks to get back on track!</div>`;
+  } else if (acc && acc < 60) {
+    alertEl.innerHTML = `<div class="alert alert-warn">🔄 Accuracy is below 60%. Revision mode activated! Focus on weak areas today.</div>`;
+  } else if (streak >= 7) {
+    alertEl.innerHTML = `<div class="alert alert-success">🔥 ${streak}-day streak! Incredible discipline. Keep the momentum!</div>`;
+  } else {
+    alertEl.innerHTML = '';
+  }
+
+  // Timetable
+  renderTimetableBlocks(plan.blocks, 'dashTimetable', today);
+  updateTodayProgress(today, plan.blocks);
+
+  // Subject accuracy bars
+  renderSubjectAccuracyBars();
+
+  // Weak area
+  renderWeakAreaPanel();
+}
+
+function renderTimetableBlocks(blocks, containerId, day) {
+  const container = document.getElementById(containerId);
+  if (!container) return;
+  const dayStr = day+'';
+  container.innerHTML = blocks.map((b,i) => {
+    if (b.isBreak) {
+      return `<div class="time-block break-block">
+        <div class="time-col">${b.time}</div>
+        <div class="task-col">
+          <div class="task-title">${b.title}</div>
+        </div>
+      </div>`;
+    }
+    const key = dayStr+'_'+i;
+    const isDone = (state.tasksChecked[key] === true);
+    return `<div class="time-block">
+      <div class="time-col">${b.time}</div>
+      <div class="task-col">
+        <div class="task-check ${isDone?'done':''}" onclick="toggleTask('${key}','${containerId}',${day})" title="Mark complete">${isDone?'✓':''}</div>
+        <span class="task-tag" style="background:${b.color}22;color:${b.color};border:1px solid ${b.color}44;">${b.tag}</span>
+        <div class="task-title" style="${isDone?'text-decoration:line-through;opacity:0.5;':''}">${b.title}</div>
+        <div class="task-qty">${b.qty}</div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function toggleTask(key, containerId, day) {
+  state.tasksChecked[key] = !state.tasksChecked[key];
+  save();
+  renderTimetableBlocks(getDayPlan(day).blocks, containerId, day);
+  if (containerId === 'dashTimetable') updateTodayProgress(day, getDayPlan(day).blocks);
+  if (containerId === 'fullTimetable') {
+    renderTimetableBlocks(getDayPlan(state.currentViewDay).blocks, 'fullTimetable', state.currentViewDay);
+  }
+}
+
+function updateTodayProgress(day, blocks) {
+  const nonBreaks = blocks.filter(b => !b.isBreak);
+  const total = nonBreaks.length;
+  let done = 0;
+  nonBreaks.forEach((b,i) => {
+    const allIdx = blocks.indexOf(b);
+    const key = day+'_'+allIdx;
+    if (state.tasksChecked[key]) done++;
+  });
+  const pct = total > 0 ? Math.round(done/total*100) : 0;
+  document.getElementById('todayPct').textContent = pct+'%';
+  document.getElementById('todayDone').textContent = `${done} of ${total} tasks completed`;
+  document.getElementById('todayProgFill').style.width = pct+'%';
+}
+
+function renderSubjectAccuracyBars() {
+  const subjects = [
+    {name:'Quant', key:'quant', color:'var(--phase1)'},
+    {name:'Reasoning', key:'reasoning', color:'var(--teal)'},
+    {name:'English', key:'english', color:'var(--purple)'},
+    {name:'CA', key:'ca', color:'var(--blue)'},
+  ];
+  const container = document.getElementById('subjectAccuracyBars');
+  container.innerHTML = subjects.map(s => {
+    const acc = calcSubjectAccuracy(s.key);
+    const pct = acc || 0;
+    const color = pct < 60 ? 'var(--red)' : pct < 75 ? 'var(--accent)' : s.color;
+    return `<div class="prog-row">
+      <div class="prog-label">${s.name}</div>
+      <div class="prog-bar" style="flex:1;"><div class="prog-fill" style="width:${pct}%;background:${color};"></div></div>
+      <div class="prog-pct">${acc ? acc+'%' : '—'}</div>
+    </div>`;
+  }).join('');
+  subjects.forEach(s => {
+    const accEl = document.getElementById(s.key+'AccBadge');
+    if (accEl) {
+      const acc = calcSubjectAccuracy(s.key);
+      accEl.textContent = acc ? `Accuracy: ${acc}%` : 'No data yet';
+      accEl.style.background = acc && acc < 60 ? 'rgba(231,76,60,0.15)' : 'rgba(46,204,113,0.15)';
+      accEl.style.color = acc && acc < 60 ? 'var(--red)' : 'var(--green)';
+    }
+  });
+}
+
+function renderWeakAreaPanel() {
+  const subjects = [
+    {name:'Quantitative', key:'quant', icon:'🔢'},
+    {name:'Reasoning', key:'reasoning', icon:'🧩'},
+    {name:'English', key:'english', icon:'📝'},
+  ];
+  const accs = subjects.map(s => ({...s, acc: calcSubjectAccuracy(s.key) || 75}));
+  accs.sort((a,b) => a.acc - b.acc);
+
+  const container = document.getElementById('weakAreaPanel');
+  container.innerHTML = accs.map((s,i) => {
+    const priority = i === 0 ? 'priority-high' : i === 1 ? 'priority-med' : 'priority-low';
+    const label = i === 0 ? 'WEAKEST — FOCUS' : i === 1 ? 'IMPROVE' : 'STRONG';
+    const extra = i === 0 ? '+30 min allocated tomorrow' : '';
+    return `<div class="weak-subject">
+      <div class="weak-icon">${s.icon}</div>
+      <div class="weak-info">
+        <div class="weak-name">${s.name}</div>
+        <div class="weak-stat">Accuracy: ${s.acc}% ${extra ? '• '+extra : ''}</div>
+      </div>
+      <div class="weak-badge ${priority}">${label}</div>
+    </div>`;
+  }).join('');
+}
+
+// ===== DAILY PLAN PAGE =====
+let viewDay = 1;
+
+function renderDailyPlan() {
+  if (!state.currentViewDay) state.currentViewDay = getDayNumber();
+  viewDay = state.currentViewDay;
+  renderDayView(viewDay);
+}
+
+function renderDayView(day) {
+  document.getElementById('viewDayNum').textContent = day;
+  const plan = getDayPlan(day);
+  const phase = getPhase(day);
+  const phaseColors = {1:'var(--phase1)',2:'var(--phase2)',3:'var(--phase3)'};
+  const phaseNames = {1:'Phase 1 — Foundation (Day 1–30)',2:'Phase 2 — Building Power (Day 31–60)',3:'Phase 3 — Exam Mode (Day 61–90)'};
+
+  document.getElementById('dailyFocus').textContent = plan.focus;
+  document.getElementById('dailyPhase').textContent = phaseNames[phase];
+  document.getElementById('dailyPhaseAlert').innerHTML =
+    `<div class="alert alert-info" style="background:${phaseColors[phase]}15;border-color:${phaseColors[phase]}44;color:${phaseColors[phase]};">
+      Day ${day} | Difficulty Level ${plan.diff}/9 | ${phaseNames[phase]}
+    </div>`;
+
+  // Difficulty meter
+  const dm = document.getElementById('difficultyMeter');
+  dm.innerHTML = Array.from({length:9},(_,i) =>
+    `<div style="width:20px;height:20px;border-radius:3px;background:${i<plan.diff?phaseColors[phase]:'var(--bg4)'};"></div>`
+  ).join('');
+  document.getElementById('difficultyLabel').textContent = `Level ${plan.diff}/9 — ${plan.diff <= 3 ? 'Beginner' : plan.diff <= 6 ? 'Intermediate' : 'Expert'}`;
+
+  renderTimetableBlocks(plan.blocks, 'fullTimetable', day);
+
+  // Day notes
+  const notes = {
+    quant: plan.quant, reasoning: plan.reasoning,
+    english: plan.english, ca: plan.ca, computer: plan.computer
+  };
+  document.getElementById('dayNotes').innerHTML = `
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+      ${Object.entries(notes).map(([k,v]) => `
+        <div style="border:1px solid var(--border);border-radius:8px;padding:12px;">
+          <div style="font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:6px;">${k.toUpperCase()}</div>
+          <div style="font-size:13px;">${v}</div>
+        </div>`).join('')}
+    </div>
+    <div style="margin-top:16px;padding:12px;background:var(--bg3);border-radius:8px;font-size:12px;color:var(--muted);">
+      💡 <strong style="color:var(--text);">Pro Tip for Day ${day}:</strong> ${getDayTip(day)}
+    </div>`;
+}
+
+function getDayTip(day) {
+  const tips = [
+    "Start with 10 minutes of mental math warm-up before diving into quant.",
+    "Write down every formula you study today in a dedicated notebook.",
+    "Solve questions with a timer — even in foundation phase. Build the habit.",
+    "Never skip the break blocks — mental rest doubles retention.",
+    "After each practice set, ALWAYS analyze your wrong answers before moving on.",
+    "Speed is a by-product of accuracy. Focus on getting it right first.",
+    "Today's CA reading is tomorrow's guaranteed marks. Be consistent.",
+    "Attempt reasoning puzzles in order of difficulty within a puzzle set.",
+    "RC strategy: Read questions FIRST, then read passage for targeted answers.",
+    "For every error, write WHY you got it wrong — not just the correct answer.",
+  ];
+  return tips[day % tips.length];
+}
+
+function prevDay() {
+  if (state.currentViewDay > 1) {
+    state.currentViewDay--;
+    save();
+    renderDayView(state.currentViewDay);
+  }
+}
+
+function nextDay() {
+  if (state.currentViewDay < 90) {
+    state.currentViewDay++;
+    save();
+    renderDayView(state.currentViewDay);
+  }
+}
+
+function goToToday() {
+  state.currentViewDay = getDayNumber();
+  save();
+  renderDayView(state.currentViewDay);
+}
+
+function markDayComplete() {
+  const today = getDayNumber();
+  const key = todayKey();
+  if (!state.completedDays.includes(key)) {
+    state.completedDays.push(key);
+    state.missedDays = state.missedDays.filter(d => d !== key);
+    save();
+  }
+  renderDashboard();
+}
+
+// ===== CALENDAR =====
+let calYear, calMonth;
+
+function renderCalendar() {
+  if (!calYear) { calYear = new Date().getFullYear(); calMonth = new Date().getMonth(); }
+
+  const months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+  document.getElementById('calMonthLabel').textContent = months[calMonth]+' '+calYear;
+
+  const firstDay = new Date(calYear, calMonth, 1).getDay();
+  const daysInMonth = new Date(calYear, calMonth+1, 0).getDate();
+  const today = getToday();
+
+  const days = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+  let html = days.map(d => `<div class="cal-day-label">${d}</div>`).join('');
+  for (let i=0; i<firstDay; i++) html += `<div class="cal-day empty"></div>`;
+
+  for (let d=1; d<=daysInMonth; d++) {
+    const date = new Date(calYear, calMonth, d);
+    const dateStr = dateKey(date);
+    const studyDay = Math.floor((date - START_DATE)/86400000)+1;
+    const isToday = date.toDateString() === today.toDateString();
+    const isFuture = date > today;
+    const isCompleted = state.completedDays.includes(dateStr);
+    const isMissed = state.missedDays.includes(dateStr);
+    const isStudyDay = studyDay >= 1 && studyDay <= 90;
+
+    let cls = 'cal-day';
+    if (isToday) cls += ' today';
+    else if (isFuture) cls += ' future';
+    else if (isCompleted) cls += ' done';
+    else if (isMissed) cls += ' missed';
+    else if (isStudyDay && !isFuture) cls += ' missed';
+    else cls += ' future';
+
+    const dayLabel = isStudyDay ? `<span style="font-size:9px;display:block;opacity:0.6;">D${studyDay}</span>${d}` : d;
+    html += `<div class="${cls}" title="Day ${studyDay || ''}">${dayLabel}</div>`;
+  }
+
+  document.getElementById('calendarGrid').innerHTML = `<div class="cal-grid">${html}</div>`;
+
+  // Stats
+  const totalElapsed = Math.max(0, Math.floor((today - START_DATE)/86400000)+1);
+  const done = state.completedDays.length;
+  const missed = state.missedDays.length;
+  const consistency = totalElapsed > 0 ? Math.round(done/Math.min(totalElapsed,90)*100) : 0;
+
+  document.getElementById('calDone').textContent = done;
+  document.getElementById('calMissed').textContent = missed;
+  document.getElementById('calConsistency').textContent = consistency+'%';
+  document.getElementById('calStreak').textContent = calcStreak();
+
+  // Phase timeline
+  const timeline = document.getElementById('phaseTimeline');
+  const phases = [
+    {name:'Phase 1 — Foundation', days:'Day 1–30', color:'var(--phase1)', desc:'Simplification, Basic Reasoning, Grammar, CA Intro, Computer Basics'},
+    {name:'Phase 2 — Building Power', days:'Day 31–60', color:'var(--phase2)', desc:'Advanced Arithmetic, DI, Complex Puzzles, RC, Computer Networking'},
+    {name:'Phase 3 — Exam Mode', days:'Day 61–90', color:'var(--phase3)', desc:'High-level DI, Full Mocks, Time-bound Practice, Heavy Revision'},
+  ];
+  timeline.innerHTML = phases.map(p => `
+    <div style="display:flex;gap:16px;align-items:flex-start;padding:14px 0;border-bottom:1px solid var(--border);">
+      <div style="width:12px;height:12px;border-radius:50%;background:${p.color};margin-top:3px;flex-shrink:0;"></div>
+      <div>
+        <div style="font-weight:600;font-size:14px;">${p.name} <span style="font-size:11px;color:var(--muted);margin-left:8px;">${p.days}</span></div>
+        <div style="font-size:12px;color:var(--muted);margin-top:4px;">${p.desc}</div>
+      </div>
+    </div>`).join('');
+}
+
+function prevMonth() { calMonth--; if(calMonth<0){calMonth=11;calYear--;} renderCalendar(); }
+function nextMonth() { calMonth++; if(calMonth>11){calMonth=0;calYear++;} renderCalendar(); }
+
+// ===== SUBJECT PAGES =====
+function renderSubject(subject) {
+  renderSubjectAccuracyBars();
+  if (subject === 'quant') {
+    renderTopicGroup('quantArithmeticTopics', QUANT_ARITHMETIC_TOPICS, 'quant');
+    renderTopicGroup('quantDITopics', QUANT_DI_TOPICS, 'quant');
+    renderPracticeLog('quantLogList', 'quant');
+  }
+  if (subject === 'reasoning') {
+    renderTopicGroup('reasoningTopics', REASONING_TOPICS, 'reasoning');
+    renderPracticeLog('reasoningLogList', 'reasoning');
+  }
+  if (subject === 'english') {
+    renderTopicGroup('englishTopics', ENGLISH_TOPICS, 'english');
+    renderPracticeLog('englishLogList', 'english');
+  }
+}
+
+function renderTopicGroup(containerId, topicsObj, subject) {
+  const today = getDayNumber();
+  const container = document.getElementById(containerId);
+  if (!container) return;
+  container.innerHTML = Object.entries(topicsObj).map(([group, topics]) => `
+    <div style="margin-bottom:20px;">
+      <div style="font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:10px;">${group}</div>
+      <div>${topics.map(t => {
+        const unlocked = today >= t.day;
+        const key = `${subject}_topic_${t.name.replace(/\s/g,'_')}`;
+        const done = state.computerChecked[key] || false;
+        return `<span class="topic-pill ${done?'done':''} ${!unlocked?'':''}${unlocked&&!done?'':''}${unlocked?'':'opacity:0.4;'}"
+          onclick="${unlocked ? `toggleTopicDone('${key}','${containerId}','${subject}')` : ''}"
+          style="${!unlocked?'opacity:0.4;cursor:not-allowed;':''}"
+          title="${unlocked ? 'Click to mark done' : `Unlocks on Day ${t.day}`}">
+          ${done?'✓ ':unlocked?'':' 🔒 '}${t.name}${!unlocked ? ` (Day ${t.day})` : ''}
+        </span>`;
+      }).join('')}</div>
+    </div>`).join('');
+}
+
+function toggleTopicDone(key, containerId, subject) {
+  state.computerChecked[key] = !state.computerChecked[key];
+  save();
+  renderSubject(subject);
+}
+
+function renderPracticeLog(containerId, subject) {
+  const container = document.getElementById(containerId);
+  if (!container) return;
+  const logs = (state.practiceLog || []).filter(l => l.subject === subject).slice(-10).reverse();
+  if (logs.length === 0) { container.innerHTML = '<div style="color:var(--muted);font-size:13px;padding:12px 0;">No sessions logged yet for this subject.</div>'; return; }
+  container.innerHTML = `<div class="section-title" style="font-size:16px;">Recent Sessions</div>
+    <div class="card" style="padding:0;overflow:hidden;">
+      <table class="analytics-table">
+        <thead><tr><th>Date</th><th>Topic</th><th>Attempted</th><th>Correct</th><th>Accuracy</th><th>Time</th></tr></thead>
+        <tbody>${logs.map(l => {
+          const acc = Math.round(l.correct/l.attempted*100);
+          return `<tr>
+            <td style="font-family:var(--mono);font-size:11px;">${l.date}</td>
+            <td>${l.topic}</td>
+            <td>${l.attempted}</td>
+            <td>${l.correct}</td>
+            <td><span style="color:${acc<60?'var(--red)':acc<75?'var(--accent)':'var(--green)'};font-weight:600;">${acc}%</span></td>
+            <td>${l.time} min</td>
+          </tr>`;
+        }).join('')}</tbody>
+      </table>
+    </div>`;
+}
+
+function logPractice(subject) {
+  const topicEl = document.getElementById(subject[0]+'Topic');
+  const attEl = document.getElementById(subject[0]+'Attempted');
+  const corrEl = document.getElementById(subject[0]+'Correct');
+  const timeEl = document.getElementById(subject[0]+'Time');
+
+  const topic = topicEl.value.trim();
+  const attempted = parseInt(attEl.value);
+  const correct = parseInt(corrEl.value);
+  const time = parseInt(timeEl.value);
+
+  if (!topic || !attempted || isNaN(correct) || !time) { alert('Please fill all fields.'); return; }
+  if (correct > attempted) { alert('Correct answers cannot exceed attempted.'); return; }
+
+  const log = { subject, topic, attempted, correct, time, date: new Date().toLocaleDateString('en-IN'), ts: Date.now() };
+  state.practiceLog = state.practiceLog || [];
+  state.practiceLog.push(log);
+  save();
+
+  topicEl.value = ''; attEl.value = ''; corrEl.value = ''; timeEl.value = '';
+  renderSubject(subject);
+  renderSubjectAccuracyBars();
+  alert(`Session logged! Accuracy: ${Math.round(correct/attempted*100)}%`);
+}
+
+// ===== CURRENT AFFAIRS =====
+function renderCA() {
+  const topics = state.caTopics || [];
+  const total = topics.length;
+  const revised = topics.filter(t => t.revised).length;
+  const days = [...new Set(topics.map(t => t.date))].length;
+
+  document.getElementById('caTotalAdded').textContent = total;
+  document.getElementById('caRevised').textContent = revised;
+  document.getElementById('caDaysCovered').textContent = days;
+
+  const studyDay = getDayNumber();
+  const missed = Math.max(0, studyDay - days);
+  document.getElementById('caMissed').textContent = missed;
+
+  const coverage = studyDay > 0 ? Math.min(100, Math.round(days/studyDay*100)) : 0;
+  document.getElementById('caCoverage').textContent = `Coverage: ${coverage}%`;
+
+  // Daily log
+  const caList = document.getElementById('caList');
+  const sorted = [...topics].reverse();
+  if (sorted.length === 0) {
+    caList.innerHTML = `<div class="card" style="text-align:center;padding:30px;color:var(--muted);">No current affairs added yet. Start adding today's topics!</div>`;
+  } else {
+    const byDate = {};
+    sorted.forEach(t => { if (!byDate[t.date]) byDate[t.date] = []; byDate[t.date].push(t); });
+    caList.innerHTML = Object.entries(byDate).map(([date, ts]) => `
+      <div class="card" style="margin-bottom:12px;">
+        <div style="font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:10px;">${date}</div>
+        ${ts.map((t,i) => `<div class="ca-row">
+          <div class="ca-dot" style="background:${getCatColor(t.category)};"></div>
+          <div class="ca-text">${t.topic}</div>
+          <span class="ca-tag" style="background:${getCatColor(t.category)}22;color:${getCatColor(t.category)};">${t.category}</span>
+          <button class="btn btn-sm" style="padding:3px 8px;font-size:11px;${t.revised?'color:var(--green);border-color:rgba(46,204,113,0.4);':''}"
+            onclick="toggleCARevised(${state.caTopics.indexOf(t)})">${t.revised ? '✓ Revised' : 'Mark Revised'}</button>
+        </div>`).join('')}
+      </div>`).join('');
+  }
+
+  // Weekly revision
+  const weekRevEl = document.getElementById('caWeeklyRevision');
+  const thisWeek = getThisWeekTopics();
+  weekRevEl.innerHTML = thisWeek.length > 0 ?
+    `<div class="card"><div style="font-size:13px;font-weight:600;margin-bottom:12px;">This Week's Topics (${thisWeek.length} items)</div>
+    ${thisWeek.map(t => `<div class="ca-row">
+      <div class="ca-dot" style="background:${getCatColor(t.category)};"></div>
+      <div class="ca-text">${t.topic}</div>
+      <span class="ca-tag" style="background:${getCatColor(t.category)}22;color:${getCatColor(t.category)};">${t.category}</span>
+    </div>`).join('')}</div>` :
+    `<div class="card" style="text-align:center;padding:30px;color:var(--muted);">No topics logged this week yet.</div>`;
+
+  // Category breakdown
+  const catEl = document.getElementById('caCategoryBreakdown');
+  const cats = {};
+  topics.forEach(t => { cats[t.category] = (cats[t.category]||0)+1; });
+  catEl.innerHTML = Object.entries(cats).length > 0 ?
+    `<div class="card"><div style="font-size:13px;font-weight:600;margin-bottom:12px;">Category Coverage</div>
+    ${Object.entries(cats).sort((a,b)=>b[1]-a[1]).map(([cat,count]) => `
+      <div class="prog-row">
+        <div class="prog-label" style="width:120px;color:${getCatColor(cat)};">${cat}</div>
+        <div class="prog-bar" style="flex:1;"><div class="prog-fill" style="width:${Math.min(100,count/total*100)}%;background:${getCatColor(cat)};"></div></div>
+        <div class="prog-pct">${count}</div>
+      </div>`).join('')}</div>` :
+    `<div class="card" style="text-align:center;padding:30px;color:var(--muted);">Start adding topics to see category breakdown.</div>`;
+}
+
+function getCatColor(cat) {
+  const colors = {Banking:'#4a9eff',Economy:'#f0c040',Government:'#2ecc71',International:'#9b59b6',Awards:'#1abc9c',Sports:'#e74c3c',Science:'#ff6b35',Defence:'#e67e22',Appointments:'#3498db',Other:'#7a7a99'};
+  return colors[cat] || '#7a7a99';
+}
+
+function addCA() {
+  const topic = document.getElementById('caNewTopic').value.trim();
+  const category = document.getElementById('caCategory').value;
+  if (!topic) { alert('Please enter a topic.'); return; }
+  state.caTopics = state.caTopics || [];
+  state.caTopics.push({topic, category, date:new Date().toLocaleDateString('en-IN'), revised:false, ts:Date.now()});
+  save();
+  document.getElementById('caNewTopic').value = '';
+  renderCA();
+}
+
+function toggleCARevised(idx) {
+  if (state.caTopics[idx]) { state.caTopics[idx].revised = !state.caTopics[idx].revised; save(); renderCA(); }
+}
+
+function getThisWeekTopics() {
+  const today = new Date();
+  const weekAgo = new Date(today.getTime() - 7*24*60*60*1000);
+  return (state.caTopics||[]).filter(t => {
+    const d = new Date(t.ts || Date.now());
+    return d >= weekAgo;
+  });
+}
+
+// ===== COMPUTER AWARENESS =====
+function renderComputer() {
+  let total = 0, done = 0;
+  COMPUTER_MODULES.forEach(m => {
+    m.topics.forEach(t => {
+      total++;
+      const key = 'comp_'+m.name+'_'+t;
+      if (state.computerChecked[key]) done++;
+    });
+  });
+
+  const pct = total > 0 ? Math.round(done/total*100) : 0;
+  document.getElementById('computerProgress').textContent = `${pct}% Complete`;
+  document.getElementById('computerProgFill').style.width = pct+'%';
+  document.getElementById('computerDoneCount').textContent = done;
+  document.getElementById('computerTotalCount').textContent = total;
+
+  const today = getDayNumber();
+  const container = document.getElementById('computerModules');
+  container.innerHTML = COMPUTER_MODULES.map(m => {
+    const unlocked = today >= (m.phase === 1 ? 1 : m.phase === 2 ? 31 : 61);
+    const mDone = m.topics.filter(t => state.computerChecked['comp_'+m.name+'_'+t]).length;
+    const mPct = Math.round(mDone/m.topics.length*100);
+    const id = 'comp_'+m.name.replace(/\s/g,'_');
+    return `<div class="comp-module" style="margin-bottom:10px;${!unlocked?'opacity:0.5;':''}">
+      <div class="comp-header" onclick="${unlocked?`toggleCompModule('${id}')`:''}" style="${!unlocked?'cursor:not-allowed;':''}">
+        <div>
+          <div class="comp-title">${m.name} ${!unlocked ? `🔒 (Phase ${m.phase})` : ''}</div>
+          <div style="height:4px;width:120px;background:var(--bg4);border-radius:2px;margin-top:6px;overflow:hidden;">
+            <div style="height:100%;width:${mPct}%;background:var(--purple);border-radius:2px;"></div>
+          </div>
+        </div>
+        <div class="comp-progress">${mDone}/${m.topics.length} done</div>
+      </div>
+      <div class="comp-body" id="${id}">
+        ${m.topics.map(t => {
+          const key = 'comp_'+m.name+'_'+t;
+          const checked = state.computerChecked[key]||false;
+          return `<div class="comp-check-item ${checked?'checked':''}" onclick="toggleComputerTopic('${key}')">
+            <input type="checkbox" ${checked?'checked':''} onclick="event.stopPropagation();toggleComputerTopic('${key}')">
+            <span>${t}</span>
+          </div>`;
+        }).join('')}
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function toggleCompModule(id) {
+  const el = document.getElementById(id);
+  if (el) el.classList.toggle('open');
+}
+
+function toggleComputerTopic(key) {
+  state.computerChecked[key] = !state.computerChecked[key];
+  save();
+  renderComputer();
+}
+
+// ===== MOCK TESTS =====
+function renderMocks() {
+  const today = getDayNumber();
+  const mockEl = document.getElementById('mockUnlockAlert');
+  if (today < 30) {
+    mockEl.innerHTML = `<div class="alert alert-warn">🔒 Mini mocks unlock on Day 30. Full mocks unlock on Day 60. Keep building your foundation!</div>`;
+  } else if (today < 60) {
+    mockEl.innerHTML = `<div class="alert alert-info">✅ Mini mocks are now available! Full mocks unlock on Day 60 (${60-today} days to go).</div>`;
+  } else {
+    mockEl.innerHTML = `<div class="alert alert-success">🔥 Full mock tests are NOW ACTIVE! Aim for 130+ in full mocks.</div>`;
+  }
+
+  const mocks = state.mockTests || [];
+  const listEl = document.getElementById('mockList');
+  const emptyEl = document.getElementById('mockEmpty');
+
+  if (mocks.length === 0) { emptyEl.style.display='block'; listEl.innerHTML=''; return; }
+  emptyEl.style.display='none';
+
+  listEl.innerHTML = [...mocks].reverse().map((m,i) => {
+    const pct = Math.round(m.score/200*100);
+    const sections = [
+      {name:'Quant',score:m.quant,max:60,color:'var(--phase1)'},
+      {name:'Reasoning',score:m.reasoning,max:60,color:'var(--teal)'},
+      {name:'English',score:m.english,max:40,color:'var(--purple)'},
+      {name:'GA',score:m.ga,max:40,color:'var(--blue)'},
+    ];
+    const grade = pct >= 75 ? {g:'A',c:'var(--green)'} : pct >= 60 ? {g:'B',c:'var(--accent)'} : pct >= 50 ? {g:'C',c:'var(--accent2)'} : {g:'D',c:'var(--red)'};
+    return `<div class="mock-card" style="margin-bottom:14px;">
+      <div class="mock-header">
+        <div>
+          <div style="font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);">${m.type === 'full' ? 'Full Mock' : 'Mini Mock'} #${mocks.length - i}</div>
+          <div style="font-size:11px;color:var(--muted);">${m.date}</div>
+        </div>
+        <div style="text-align:right;">
+          <div class="mock-score" style="color:${grade.c};">${m.score}</div>
+          <div style="font-size:11px;color:var(--muted);">/ 200 — Grade ${grade.g}</div>
+        </div>
+      </div>
+      <div class="mock-body">
+        ${sections.map(s => `<div class="score-section-row">
+          <div class="score-label">${s.name}</div>
+          <div class="score-bar"><div class="score-bar-fill" style="width:${s.score/s.max*100}%;background:${s.color};"></div></div>
+          <div class="score-val" style="color:${s.color};">${s.score}/${s.max}</div>
+        </div>`).join('')}
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function openAddMock() {
+  const today = getDayNumber();
+  if (today < 30) { alert('Mock tests unlock on Day 30. Keep studying — you\'re getting there!'); return; }
+  const form = document.getElementById('addMockForm');
+  form.style.display = form.style.display === 'none' ? 'block' : 'none';
+}
+
+function saveMock() {
+  const score = parseInt(document.getElementById('mockScore').value)||0;
+  const quant = parseInt(document.getElementById('mockQuant').value)||0;
+  const reasoning = parseInt(document.getElementById('mockReasoning').value)||0;
+  const english = parseInt(document.getElementById('mockEnglish').value)||0;
+  const ga = parseInt(document.getElementById('mockGA').value)||0;
+  const type = document.getElementById('mockType').value;
+  if (!score) { alert('Enter total score.'); return; }
+  state.mockTests = state.mockTests || [];
+  state.mockTests.push({score, quant, reasoning, english, ga, type, date:new Date().toLocaleDateString('en-IN'), ts:Date.now()});
+  save();
+  document.getElementById('addMockForm').style.display='none';
+  renderMocks();
+}
+
+// ===== ANALYTICS =====
+function renderAnalytics() {
+  // Discipline score
+  const consistency = calcConsistency();
+  const discScore = consistency;
+  const discCircle = document.getElementById('discCircle');
+  const circumference = 251.2;
+  const offset = circumference - (discScore/100)*circumference;
+  discCircle.style.strokeDashoffset = offset;
+  const discColor = discScore >= 80 ? '#2ecc71' : discScore >= 60 ? '#f0c040' : '#e74c3c';
+  discCircle.setAttribute('stroke', discColor);
+  document.getElementById('discNum').textContent = discScore;
+  document.getElementById('discNum').style.color = discColor;
+  const discLabels = {
+    high:{title:'Iron Discipline 💪',msg:'You are unstoppable. Top 5% mentality. Consistency at this level virtually guarantees selection.'},
+    mid:{title:'Building Habit 🔥',msg:'Good start. Push to 80%+ consistency for guaranteed results. Every skipped day costs you.'},
+    low:{title:'Needs Improvement ⚠️',msg:'Discipline is the bridge between goals and achievement. Every day missed is a day your competitor doesn\'t miss.'}
+  };
+  const dl = discScore >= 80 ? discLabels.high : discScore >= 60 ? discLabels.mid : discLabels.low;
+  document.getElementById('discTitle').textContent = dl.title;
+  document.getElementById('discMessage').textContent = dl.msg;
+
+  // Weekly chart
+  const weeklyChart = document.getElementById('weeklyChart');
+  const weeklyLabels = document.getElementById('weeklyLabels');
+  const days7 = [];
+  for (let i=6; i>=0; i--) {
+    const d = new Date();
+    d.setDate(d.getDate()-i);
+    days7.push({date:d, key:dateKey(d), label:['Su','Mo','Tu','We','Th','Fr','Sa'][d.getDay()]});
+  }
+  const maxLogs = 10;
+  weeklyChart.innerHTML = days7.map(d => {
+    const count = (state.practiceLog||[]).filter(l => l.date === d.date.toLocaleDateString('en-IN')).length;
+    const h = Math.max(8, Math.round(count/maxLogs*80));
+    const done = state.completedDays.includes(d.key);
+    return `<div style="flex:1;height:${h}px;border-radius:3px 3px 0 0;background:${done?'var(--green)':'var(--bg4)'};min-height:8px;"></div>`;
+  }).join('');
+  weeklyLabels.innerHTML = days7.map(d =>
+    `<div style="font-size:10px;color:var(--muted);text-align:center;flex:1;">${d.label}</div>`
+  ).join('');
+
+  // Table
+  const logs = (state.practiceLog||[]).slice(-20).reverse();
+  const tbody = document.getElementById('analyticsTableBody');
+  const emptyEl = document.getElementById('analyticsEmpty');
+  if (logs.length === 0) { emptyEl.style.display='block'; tbody.innerHTML=''; return; }
+  emptyEl.style.display='none';
+  const subjectColors = {quant:'var(--phase1)',reasoning:'var(--teal)',english:'var(--purple)',ca:'var(--blue)'};
+  tbody.innerHTML = logs.map(l => {
+    const acc = Math.round(l.correct/l.attempted*100);
+    const status = acc < 60 ? {txt:'Revision Needed',c:'var(--red)'} : acc < 75 ? {txt:'Average',c:'var(--accent)'} : {txt:'Good',c:'var(--green)'};
+    return `<tr>
+      <td style="font-family:var(--mono);font-size:11px;">${l.date}</td>
+      <td><span style="color:${subjectColors[l.subject]||'var(--text)'};">${l.subject.charAt(0).toUpperCase()+l.subject.slice(1)}</span></td>
+      <td>${l.topic}</td>
+      <td>${l.attempted}</td>
+      <td>${l.correct}</td>
+      <td><span style="color:${status.c};font-weight:600;">${acc}%</span></td>
+      <td>${l.time} min</td>
+      <td><span style="color:${status.c};font-size:11px;">${status.txt}</span></td>
+    </tr>`;
+  }).join('');
+}
+
+// ===== HELPERS =====
+function todayKey() { return dateKey(getToday()); }
+function dateKey(d) { return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`; }
+
+function calcStreak() {
+  let streak = 0;
+  const today = getToday();
+  for (let i=0; i<90; i++) {
+    const d = new Date(today.getTime() - i*86400000);
+    if (state.completedDays.includes(dateKey(d))) streak++;
+    else break;
+  }
+  return streak;
+}
+
+function calcConsistency() {
+  const today = getDayNumber();
+  if (today <= 1) return 0;
+  return Math.round(state.completedDays.length / Math.min(today, 90) * 100);
+}
+
+function calcSubjectAccuracy(subject) {
+  const logs = (state.practiceLog||[]).filter(l => l.subject === subject);
+  if (logs.length === 0) return null;
+  const total = logs.reduce((a,l) => a+l.attempted, 0);
+  const correct = logs.reduce((a,l) => a+l.correct, 0);
+  return Math.round(correct/total*100);
+}
+
+function calcOverallAccuracy() {
+  const logs = state.practiceLog||[];
+  if (logs.length === 0) return null;
+  const total = logs.reduce((a,l) => a+l.attempted, 0);
+  const correct = logs.reduce((a,l) => a+l.correct, 0);
+  return Math.round(correct/total*100);
+}
+
+// ===== INIT =====
+initState();
+renderDashboard();
+</script>
+</body>
+</html>
