@@ -757,9 +757,14 @@ function initState() {
   }
   save();
 }
-
 function save() {
+  // Save locally (fast)
   localStorage.setItem('ibps_state', JSON.stringify(state));
+
+  // 🔥 Save to Firebase (sync across devices)
+  if (window.saveProgress) {
+    saveProgress(state);
+  }
 }
 
 // ===== TIME HELPERS =====
@@ -2004,57 +2009,65 @@ function calcOverallAccuracy() {
 }
 
 // ===== INIT =====
-initState();
-renderDashboard();
-</script>
 <script type="module">
-  // Import the functions you need from the SDKs you need
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.12.1/firebase-app.js";
-  // TODO: Add SDKs for Firebase products that you want to use
-  // https://firebase.google.com/docs/web/setup#available-libraries
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.12.1/firebase-app.js";
+import { getAuth, GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/12.12.1/firebase-auth.js";
+import { getFirestore, doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/12.12.1/firebase-firestore.js";
 
-  // Your web app's Firebase configuration
-  const firebaseConfig = {
-    apiKey: "AIzaSyAR-6L8sBeZk85G1jVBffC-UMbjiJt9y0Q",
-    authDomain: "ultimate-ibps-po-mains-tracker.firebaseapp.com",
-    projectId: "ultimate-ibps-po-mains-tracker",
-    storageBucket: "ultimate-ibps-po-mains-tracker.firebasestorage.app",
-    messagingSenderId: "218083341268",
-    appId: "1:218083341268:web:23e3d7e17df4b681b29c41"
-  };
+const firebaseConfig = {
+  apiKey: "AIzaSyAR-6L8sBeZk85G1jVBffC-UMbjiJt9y0Q",
+  authDomain: "ultimate-ibps-po-mains-tracker.firebaseapp.com",
+  projectId: "ultimate-ibps-po-mains-tracker",
+  storageBucket: "ultimate-ibps-po-mains-tracker.firebasestorage.app",
+  messagingSenderId: "218083341268",
+  appId: "1:218083341268:web:23e3d7e17df4b681b29c41"
+};
 
-  // Initialize Firebase
-  const app = initializeApp(firebaseConfig);
-</script>
-  <script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.12.1/firebase-app.js";
-  import { getAuth, GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/12.12.1/firebase-auth.js";
+const app = initializeApp(firebaseConfig);
+const auth = getAuth();
+const db = getFirestore();
 
-  const firebaseConfig = {
-    apiKey: "AIzaSyAR-6L8sBeZk85G1jVBffC-UMbjiJt9y0Q",
-    authDomain: "ultimate-ibps-po-mains-tracker.firebaseapp.com",
-    projectId: "ultimate-ibps-po-mains-tracker",
-    storageBucket: "ultimate-ibps-po-mains-tracker.firebasestorage.app",
-    messagingSenderId: "218083341268",
-    appId: "1:218083341268:web:23e3d7e17df4b681b29c41"
-  };
+// 🔐 LOGIN
+window.loginWithGoogle = async function() {
+  const provider = new GoogleAuthProvider();
 
-  const app = initializeApp(firebaseConfig);
-  const auth = getAuth();
+  try {
+    const result = await signInWithPopup(auth, provider);
+    const user = result.user;
 
-  window.loginWithGoogle = async function() {
-    const provider = new GoogleAuthProvider();
+    document.getElementById("userName").innerText = user.displayName;
 
-    try {
-      const result = await signInWithPopup(auth, provider);
-      const user = result.user;
+    // 🔥 LOAD USER DATA
+    await loadProgress(user.uid);
 
-      document.getElementById("userName").innerText = user.displayName;
-    } catch (error) {
-      console.error(error);
-      alert("Login failed");
-    }
-  };
+  } catch (error) {
+    console.error(error);
+    alert("Login failed");
+  }
+};
+
+// 💾 SAVE
+window.saveProgress = async function(state) {
+  const user = auth.currentUser;
+  if (!user) return;
+
+  await setDoc(doc(db, "users", user.uid), state);
+};
+
+// 📥 LOAD (THIS IS WHAT YOU WERE MISSING)
+async function loadProgress(uid) {
+  const ref = doc(db, "users", uid);
+  const snap = await getDoc(ref);
+
+  if (snap.exists()) {
+    Object.assign(state, snap.data());
+
+    // sync with local
+    localStorage.setItem('ibps_state', JSON.stringify(state));
+
+    renderDashboard();
+  }
+}
 </script>
 </body>
 </html>
