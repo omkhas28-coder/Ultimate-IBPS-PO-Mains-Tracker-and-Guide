@@ -310,11 +310,21 @@ select option { background:var(--bg2); }
       </div>
     </div>
     <div class="header-date">
-      <strong id="dashDate">—</strong>
-      <span>Today's Date</span><br>
-      <span id="dashDaysLeft">— days to exam</span>
+  <strong id="dashDate">—</strong>
+  <span>Today's Date</span><br>
+  <span id="dashDaysLeft">— days to exam</span>
+
+  <!-- 🔥 LOGIN SECTION -->
+  <div style="margin-top:12px;">
+    <button onclick="loginWithGoogle()" 
+      style="background:#4285F4;color:white;border:none;border-radius:6px;padding:6px 10px;cursor:pointer;">
+      Login
+    </button>
+    <div id="userName" style="font-size:12px;margin-top:4px;">
+      Not Logged In
     </div>
   </div>
+</div>
 
   <div class="section">
     <!-- Alert section -->
@@ -1996,6 +2006,55 @@ function calcOverallAccuracy() {
 // ===== INIT =====
 initState();
 renderDashboard();
+</script>
+<script type="module">
+  // Import the functions you need from the SDKs you need
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.12.1/firebase-app.js";
+  // TODO: Add SDKs for Firebase products that you want to use
+  // https://firebase.google.com/docs/web/setup#available-libraries
+
+  // Your web app's Firebase configuration
+  const firebaseConfig = {
+    apiKey: "AIzaSyAR-6L8sBeZk85G1jVBffC-UMbjiJt9y0Q",
+    authDomain: "ultimate-ibps-po-mains-tracker.firebaseapp.com",
+    projectId: "ultimate-ibps-po-mains-tracker",
+    storageBucket: "ultimate-ibps-po-mains-tracker.firebasestorage.app",
+    messagingSenderId: "218083341268",
+    appId: "1:218083341268:web:23e3d7e17df4b681b29c41"
+  };
+
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+</script>
+  <script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.12.1/firebase-app.js";
+  import { getAuth, GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/12.12.1/firebase-auth.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyAR-6L8sBeZk85G1jVBffC-UMbjiJt9y0Q",
+    authDomain: "ultimate-ibps-po-mains-tracker.firebaseapp.com",
+    projectId: "ultimate-ibps-po-mains-tracker",
+    storageBucket: "ultimate-ibps-po-mains-tracker.firebasestorage.app",
+    messagingSenderId: "218083341268",
+    appId: "1:218083341268:web:23e3d7e17df4b681b29c41"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth();
+
+  window.loginWithGoogle = async function() {
+    const provider = new GoogleAuthProvider();
+
+    try {
+      const result = await signInWithPopup(auth, provider);
+      const user = result.user;
+
+      document.getElementById("userName").innerText = user.displayName;
+    } catch (error) {
+      console.error(error);
+      alert("Login failed");
+    }
+  };
 </script>
 </body>
 </html>
