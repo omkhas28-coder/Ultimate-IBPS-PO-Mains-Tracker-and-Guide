@@ -725,7 +725,7 @@ select option { background:var(--bg2); }
 
 <script>
 // ===== STATE =====
-const START_DATE = new Date('2025-05-05'); // App start date (today)
+const START_DATE = new Date('2026-05-06'); // App start date (today)
 let state = JSON.parse(localStorage.getItem('ibps_state') || '{}');
 
 function initState() {
@@ -761,8 +761,13 @@ function getToday() {
 
 function getDayNumber() {
   const today = getToday();
-  const diff = Math.floor((today - START_DATE) / 86400000);
-  return Math.max(1, Math.min(90, diff + 1));
+
+  const start = new Date(START_DATE);   // create copy
+  start.setHours(0,0,0,0);              // 🔥 normalize start date
+
+  const diff = Math.floor((today - start) / 86400000) + 1;
+
+  return Math.max(1, Math.min(90, diff));
 }
 
 function getPhase(day) {
